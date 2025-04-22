@@ -18,6 +18,18 @@
    - Key4::import_public_ed448
    - Key4::import_public_x25519
    - Key4::import_public_x448
+   - Key6::generate_mldsa65_ed25519
+   - Key6::generate_mldsa87_ed448
+   - mpi::PublicKey::MLDSA65_Ed25519
+   - mpi::PublicKey::MLDSA87_Ed448
+   - mpi::SecretKeyMaterial::MLDSA65_Ed25519
+   - mpi::SecretKeyMaterial::MLDSA87_Ed448
+   - mpi::Signature::MLDSA65_Ed25519
+   - mpi::Signature::MLDSA87_Ed448
+   - PublicKeyAlgorithm::MLDSA65_Ed25519
+   - PublicKeyAlgorithm::MLDSA87_Ed448
+   - policy::AsymmetricAlgorithm::MLDSA65_Ed25519
+   - policy::AsymmetricAlgorithm::MLDSA87_Ed448
 
 * Changes in 2.1.0
 ** Notable fixes
