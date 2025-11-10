@@ -1513,7 +1513,6 @@ impl<'a> Policy for StandardPolicy<'a> {
     fn key(&self, ka: &ValidErasedKeyAmalgamation<key::PublicParts>)
         -> Result<()>
     {
-        use self::AsymmetricAlgorithm::{*, Unknown};
         use crate::types::PublicKeyAlgorithm::{self, *};
         use crate::crypto::mpi::PublicKey;
 
@@ -1522,37 +1521,49 @@ impl<'a> Policy for StandardPolicy<'a> {
             // RSA.
             (RSAEncryptSign, Some(b))
                 | (RSAEncrypt, Some(b))
-                | (RSASign, Some(b)) if b < 2048 => RSA1024,
+                | (RSASign, Some(b))
+                if b < 2048 => AsymmetricAlgorithm::RSA1024,
             (RSAEncryptSign, Some(b))
                 | (RSAEncrypt, Some(b))
-                | (RSASign, Some(b)) if b < 3072 => RSA2048,
+                | (RSASign, Some(b))
+                if b < 3072 => AsymmetricAlgorithm::RSA2048,
             (RSAEncryptSign, Some(b))
                 | (RSAEncrypt, Some(b))
-                | (RSASign, Some(b)) if b < 4096 => RSA3072,
+                | (RSASign, Some(b))
+                if b < 4096 => AsymmetricAlgorithm::RSA3072,
             (RSAEncryptSign, Some(_))
                 | (RSAEncrypt, Some(_))
-                | (RSASign, Some(_)) => RSA4096,
+                | (RSASign, Some(_))
+                => AsymmetricAlgorithm::RSA4096,
             (RSAEncryptSign, None)
                 | (RSAEncrypt, None)
                 | (RSASign, None) => unreachable!(),
 
             // ElGamal.
             (ElGamalEncryptSign, Some(b))
-                | (ElGamalEncrypt, Some(b)) if b < 2048 => ElGamal1024,
+                | (ElGamalEncrypt, Some(b))
+                if b < 2048 => AsymmetricAlgorithm::ElGamal1024,
             (ElGamalEncryptSign, Some(b))
-                | (ElGamalEncrypt, Some(b)) if b < 3072 => ElGamal2048,
+                | (ElGamalEncrypt, Some(b))
+                if b < 3072 => AsymmetricAlgorithm::ElGamal2048,
             (ElGamalEncryptSign, Some(b))
-                | (ElGamalEncrypt, Some(b)) if b < 4096 => ElGamal3072,
+                | (ElGamalEncrypt, Some(b))
+                if b < 4096 => AsymmetricAlgorithm::ElGamal3072,
             (ElGamalEncryptSign, Some(_))
-                | (ElGamalEncrypt, Some(_)) => ElGamal4096,
+                | (ElGamalEncrypt, Some(_))
+                => AsymmetricAlgorithm::ElGamal4096,
             (ElGamalEncryptSign, None)
                 | (ElGamalEncrypt, None) => unreachable!(),
 
             // DSA.
-            (DSA, Some(b)) if b < 2048 => DSA1024,
-            (DSA, Some(b)) if b < 3072 => DSA2048,
-            (DSA, Some(b)) if b < 4096 => DSA3072,
-            (DSA, Some(_)) => DSA4096,
+            (DSA, Some(b))
+                if b < 2048 => AsymmetricAlgorithm::DSA1024,
+            (DSA, Some(b))
+                if b < 3072 => AsymmetricAlgorithm::DSA2048,
+            (DSA, Some(b))
+                if b < 4096 => AsymmetricAlgorithm::DSA3072,
+            (DSA, Some(_))
+                => AsymmetricAlgorithm::DSA4096,
             (DSA, None) => unreachable!(),
 
             // ECC.
@@ -1565,15 +1576,15 @@ impl<'a> Policy for StandardPolicy<'a> {
                 };
                 use crate::types::Curve;
                 match curve {
-                    Curve::NistP256 => NistP256,
-                    Curve::NistP384 => NistP384,
-                    Curve::NistP521 => NistP521,
-                    Curve::BrainpoolP256 => BrainpoolP256,
-                    Curve::BrainpoolP384 => BrainpoolP384,
-                    Curve::BrainpoolP512 => BrainpoolP512,
-                    Curve::Ed25519 => Cv25519,
-                    Curve::Cv25519 => Cv25519,
-                    Curve::Unknown(_) => Unknown,
+                    Curve::NistP256 => AsymmetricAlgorithm::NistP256,
+                    Curve::NistP384 => AsymmetricAlgorithm::NistP384,
+                    Curve::NistP521 => AsymmetricAlgorithm::NistP521,
+                    Curve::BrainpoolP256 => AsymmetricAlgorithm::BrainpoolP256,
+                    Curve::BrainpoolP384 => AsymmetricAlgorithm::BrainpoolP384,
+                    Curve::BrainpoolP512 => AsymmetricAlgorithm::BrainpoolP512,
+                    Curve::Ed25519 => AsymmetricAlgorithm::Cv25519,
+                    Curve::Cv25519 => AsymmetricAlgorithm::Cv25519,
+                    Curve::Unknown(_) => AsymmetricAlgorithm::Unknown,
                 }
             },
 
@@ -1583,7 +1594,8 @@ impl<'a> Policy for StandardPolicy<'a> {
             (PublicKeyAlgorithm::Ed448, _) => AsymmetricAlgorithm::Ed448,
 
             (PublicKeyAlgorithm::Private(_), _)
-                | (PublicKeyAlgorithm::Unknown(_), _) => Unknown,
+                | (PublicKeyAlgorithm::Unknown(_), _)
+                => AsymmetricAlgorithm::Unknown,
         };
 
         let time = self.time.unwrap_or_else(Timestamp::now);
