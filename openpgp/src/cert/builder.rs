@@ -84,10 +84,11 @@ pub enum CipherSuite {
     /// 4096 bit RSA with SHA512 and AES256
     RSA4k,
 
+    /// Ed25519 with MLKEM768+X25519
+    Ed25519_MLKEM768,
     /// Composite signature algorithm MLDSA65+Ed25519, and composite
     /// KEM MLKEM768+X25519.
     MLDSA65_Ed25519,
-
     /// Composite signature algorithm MLDSA78+Ed448, and composite
     /// KEM MLKEM1024+X448.
     MLDSA87_Ed448,
@@ -109,7 +110,7 @@ impl CipherSuite {
         use CipherSuite::*;
 
         [ Cv25519, RSA3k, P256, P384, P521, RSA2k, RSA4k,
-          MLDSA65_Ed25519, MLDSA87_Ed448 ]
+          Ed25519_MLKEM768, MLDSA65_Ed25519, MLDSA87_Ed448 ]
             .into_iter()
     }
 
@@ -162,6 +163,11 @@ impl CipherSuite {
                 check_pk!(PublicKeyAlgorithm::ECDSA);
                 check_curve!(Curve::NistP521);
                 check_pk!(PublicKeyAlgorithm::ECDH);
+            },
+            Ed25519_MLKEM768 => {
+                check_pk!(PublicKeyAlgorithm::EdDSA);
+                check_curve!(Curve::Ed25519);
+                check_pk!(PublicKeyAlgorithm::MLKEM768_X25519);
             },
             MLDSA65_Ed25519 => {
                 check_pk!(PublicKeyAlgorithm::MLDSA65_Ed25519);
@@ -372,6 +378,8 @@ impl PublicKeyAlgorithmSpecification {
                 PublicKeyAlgorithmSpecification::ECDH(Curve::NistP384),
             CipherSuite::P521 =>
                 PublicKeyAlgorithmSpecification::ECDH(Curve::NistP521),
+            CipherSuite::Ed25519_MLKEM768 =>
+                PublicKeyAlgorithmSpecification::MLKEM768_X25519,
             CipherSuite::MLDSA65_Ed25519 =>
                 PublicKeyAlgorithmSpecification::MLKEM768_X25519,
             CipherSuite::MLDSA87_Ed448 =>
@@ -395,6 +403,8 @@ impl PublicKeyAlgorithmSpecification {
                 PublicKeyAlgorithmSpecification::EdDSA(Curve::NistP384),
             CipherSuite::P521 =>
                 PublicKeyAlgorithmSpecification::EdDSA(Curve::NistP521),
+            CipherSuite::Ed25519_MLKEM768 =>
+                PublicKeyAlgorithmSpecification::Ed25519,
             CipherSuite::MLDSA65_Ed25519 =>
                 PublicKeyAlgorithmSpecification::MLDSA65_Ed25519,
             CipherSuite::MLDSA87_Ed448 =>
@@ -442,6 +452,10 @@ impl PublicKeyAlgorithmSpecification {
             (true, PublicKeyAlgorithmSpecification::EdDSA(c))
             | (true, PublicKeyAlgorithmSpecification::ECDSA(c)) =>
                 Key4::generate_ecc(true, c.clone()),
+            (false, PublicKeyAlgorithmSpecification::MLKEM768_X25519) =>
+                Key4::generate_mlkem768_x25519(),
+            (true, PublicKeyAlgorithmSpecification::Ed25519) =>
+                Key4::generate_ed25519(),
 
             _ => Err(Error::InvalidOperation(
                 format!("Cannot use {} for {} as a v4 key",
