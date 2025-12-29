@@ -962,7 +962,7 @@ fn packet_path_iter() {
 ///
 /// let (cert, _) = CertBuilder::new()
 ///     .set_creation_time(t1)
-///     .add_userid("Alice <alice@example.org>")
+///     .add_userid("paul <paul@example.org>")
 ///     .generate()?;
 ///
 /// // Add a new User ID.
@@ -971,7 +971,7 @@ fn packet_path_iter() {
 ///
 /// // Use the existing User ID's signature as a template.  This ensures that
 /// // we use the same
-/// let userid = UserID::from("Alice <alice@other.com>");
+/// let userid = UserID::from("paul <paul@other.com>");
 /// let template: signature::SignatureBuilder
 ///     = cert.with_policy(p, t1)?.primary_userid().unwrap()
 ///         .binding_signature().clone().into();

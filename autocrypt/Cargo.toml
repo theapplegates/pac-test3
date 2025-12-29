@@ -30,7 +30,7 @@ bench = false
 
 # Enables a crypto backend for the tests:
 [target.'cfg(not(windows))'.dev-dependencies]
-sequoia-openpgp = { version = "2.2.0-pqc", path = "../openpgp", default-features = false, features = ["crypto-nettle", "__implicit-crypto-backend-for-tests"] }
+sequoia-openpgp = { version = "2.2.0-pqc", path = "../openpgp", default-features = false, features = ["crypto-openssl", "__implicit-crypto-backend-for-tests"] }
 
 # Enables a crypto backend for the tests:
 [target.'cfg(windows)'.dev-dependencies]

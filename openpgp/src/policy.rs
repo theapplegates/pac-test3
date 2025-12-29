@@ -361,9 +361,9 @@ pub trait Policy : fmt::Debug + Send + Sync {
 /// attack allows the attacker to add a User ID or a User Attribute to
 /// the victim's certificate (V).  This can confuse people who use the
 /// victim's certificate.  For instance, if the attacker adds the
-/// identity `alice@example.org` to the victim's certificate, and Bob
+/// identity `paul@example.org` to the victim's certificate, and Bob
 /// receives a message signed using the victim's certificate (V), he
-/// may think that Alice signed the message instead of the victim.
+/// may think that paul signed the message instead of the victim.
 /// Bob won't be tricked if he uses strong authentication, but many
 /// OpenPGP users use weak authentication (e.g., TOFU) or don't
 /// authenticate keys at all.
@@ -2051,7 +2051,7 @@ mod test {
 
         // A primary and two subkeys.
         let (cert, _) = CertBuilder::new()
-            .add_userid("Alice")
+            .add_userid("paul")
             .add_signing_subkey()
             .add_transport_encryption_subkey()
             .generate()?;
@@ -2457,7 +2457,7 @@ mod test {
         const DEFAULT : StandardPolicy = StandardPolicy::new();
 
         let (cert, _) = CertBuilder::new()
-            .add_userid("Alice")
+            .add_userid("paul")
             .generate()?;
 
         let algo = cert.primary_key()

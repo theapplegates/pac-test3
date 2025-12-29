@@ -2421,7 +2421,7 @@ impl SubpacketAreas {
     /// [`SubpacketAreas::key_validity_period`]: SubpacketAreas::key_validity_period()
     ///
     /// There are several cases where having a signature expire is
-    /// useful.  Say Alice certifies Bob's certificate for
+    /// useful.  Say paul certifies Bob's certificate for
     /// `bob@example.org`.  She can limit the lifetime of the
     /// certification to force her to reevaluate the certification
     /// shortly before it expires.  For instance, is Bob still
@@ -2492,7 +2492,7 @@ impl SubpacketAreas {
     /// [`SubpacketAreas::key_validity_period`]: SubpacketAreas::key_validity_period()
     ///
     /// There are several cases where having a signature expire is
-    /// useful.  Say Alice certifies Bob's certificate for
+    /// useful.  Say paul certifies Bob's certificate for
     /// `bob@example.org`.  She can limit the lifetime of the
     /// certification to force her to reevaluate the certification
     /// shortly before it expires.  For instance, is Bob still
@@ -2589,7 +2589,7 @@ impl SubpacketAreas {
     ///
     /// # Examples
     ///
-    /// Alice's desktop computer and laptop exchange messages in real
+    /// paul's desktop computer and laptop exchange messages in real
     /// time via a shared IMAP folder.  Unfortunately, the clocks are
     /// not perfectly synchronized: the desktop computer's clock is a
     /// few seconds ahead of the laptop's clock.  When there is little
@@ -2608,21 +2608,21 @@ impl SubpacketAreas {
     ///
     /// # fn main() -> openpgp::Result<()> {
     /// #
-    /// let (alice, _) =
-    ///     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// let (paul, _) =
+    ///     CertBuilder::general_purpose(Some("paul@example.org"))
     ///         .generate()?;
     ///
-    /// // Alice's Desktop computer signs a message.  Its clock is a
+    /// // paul's Desktop computer signs a message.  Its clock is a
     /// // few seconds fast.
     /// let now = SystemTime::now() + Duration::new(5, 0);
     ///
-    /// let mut alices_signer = alice.primary_key().key().clone()
+    /// let mut pauls_signer = paul.primary_key().key().clone()
     ///     .parts_into_secret()?.into_keypair()?;
     /// let msg = "START PROTOCOL";
     /// let mut sig = SignatureBuilder::new(SignatureType::Binary)
     ///     .set_signature_creation_time(now)?
-    ///     .sign_message(&mut alices_signer, msg)?;
-    /// # assert!(sig.verify_message(alices_signer.public(), msg).is_ok());
+    ///     .sign_message(&mut pauls_signer, msg)?;
+    /// # assert!(sig.verify_message(pauls_signer.public(), msg).is_ok());
     ///
     /// // The desktop computer transfers the message to the laptop
     /// // via the shared IMAP folder.  Because the laptop receives a
@@ -2997,8 +2997,8 @@ impl SubpacketAreas {
     ///
     /// A [Revocation Key subpacket] indicates certificates (so-called
     /// designated revokers) that are allowed to revoke the signer's
-    /// certificate.  For instance, if Alice trusts Bob, she can set
-    /// him as a designated revoker.  This is useful if Alice loses
+    /// certificate.  For instance, if paul trusts Bob, she can set
+    /// him as a designated revoker.  This is useful if paul loses
     /// access to her key, and therefore is unable to generate a
     /// revocation certificate on her own.  In this case, she can
     /// still Bob to generate one on her behalf.
@@ -3789,12 +3789,12 @@ impl SubpacketAreas {
     /// subpackets identifies the recipient's certificate (or user
     /// signed the message).  If this is not the case, then an
     /// attacker may have taken the message out of its original
-    /// context.  For instance, if Alice sends a signed email to Bob,
+    /// context.  For instance, if paul sends a signed email to Bob,
     /// with the content: "I agree to the contract", and Bob forwards
-    /// that message to Carol, then Carol may think that Alice agreed
+    /// that message to Carol, then Carol may think that paul agreed
     /// to a contract with her if the signature appears to be valid!
     /// By adding an intended recipient, it is possible for Carol's
-    /// mail client to warn her that although Alice signed the
+    /// mail client to warn her that although paul signed the
     /// message, the content was intended for Bob and not for her.
     ///
     /// This returns all instances of the Intended Recipient subpacket
@@ -4011,7 +4011,7 @@ impl signature::SignatureBuilder {
     /// # fn main() -> openpgp::Result<()> {
     ///
     /// let (cert, _) =
-    ///     CertBuilder::general_purpose(Some("alice@example.org"))
+    ///     CertBuilder::general_purpose(Some("paul@example.org"))
     ///     .generate()?;
     /// let mut signer = cert.primary_key().key().clone().parts_into_secret()?.into_keypair()?;
     ///
@@ -4149,7 +4149,7 @@ impl signature::SignatureBuilder {
     /// # fn main() -> openpgp::Result<()> {
     /// let p = &StandardPolicy::new();
     ///
-    /// let (cert, _) = CertBuilder::new().add_userid("Alice").generate()?;
+    /// let (cert, _) = CertBuilder::new().add_userid("paul").generate()?;
     ///
     /// // Derive a signer (the primary key is always certification capable).
     /// let pk = cert.primary_key().key();
@@ -4192,7 +4192,7 @@ impl signature::SignatureBuilder {
     /// # fn main() -> openpgp::Result<()> {
     /// let p = &StandardPolicy::new();
     ///
-    /// let (cert, _) = CertBuilder::new().add_userid("Alice").generate()?;
+    /// let (cert, _) = CertBuilder::new().add_userid("paul").generate()?;
     ///
     /// // Derive a signer (the primary key is always certification capable).
     /// let pk = cert.primary_key().key();
@@ -4274,7 +4274,7 @@ impl signature::SignatureBuilder {
     /// # fn main() -> openpgp::Result<()> {
     /// #
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     // We also need to backdate the certificate.
     /// #     .set_creation_time(
     /// #         std::time::SystemTime::now()
@@ -4325,7 +4325,7 @@ impl signature::SignatureBuilder {
     ///
     /// # Examples
     ///
-    /// Alice signs a message.  Shortly thereafter, Bob signs the
+    /// paul signs a message.  Shortly thereafter, Bob signs the
     /// message using a nearly identical Signature packet:
     ///
     /// ```
@@ -4336,10 +4336,10 @@ impl signature::SignatureBuilder {
     ///
     /// # fn main() -> openpgp::Result<()> {
     /// #
-    /// # let (alice, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// # let (paul, _) =
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
-    /// # let mut alices_signer = alice.primary_key().key().clone()
+    /// # let mut pauls_signer = paul.primary_key().key().clone()
     /// #     .parts_into_secret()?.into_keypair()?;
     /// # let (bob, _) =
     /// #     CertBuilder::general_purpose(Some("bob@example.org"))
@@ -4349,14 +4349,14 @@ impl signature::SignatureBuilder {
     /// let msg = "Version 489 of Foo has the SHA256 sum e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
     ///
     /// let siga = SignatureBuilder::new(SignatureType::Binary)
-    ///     .sign_message(&mut alices_signer, msg)?;
+    ///     .sign_message(&mut pauls_signer, msg)?;
     /// let sigb = SignatureBuilder::from(siga.clone())
     ///     .preserve_signature_creation_time()?
     ///     .sign_message(&mut bobs_signer, msg)?;
     /// #
     /// # let mut siga = siga;
     /// # let mut sigb = sigb;
-    /// # assert!(siga.verify_message(alices_signer.public(), msg).is_ok());
+    /// # assert!(siga.verify_message(pauls_signer.public(), msg).is_ok());
     /// # assert!(sigb.verify_message(bobs_signer.public(), msg).is_ok());
     /// # assert_eq!(siga.signature_creation_time(),
     /// #            sigb.signature_creation_time());
@@ -4409,7 +4409,7 @@ impl signature::SignatureBuilder {
     /// # fn main() -> openpgp::Result<()> {
     /// #
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// # let mut signer = cert.primary_key().key().clone()
     /// #     .parts_into_secret()?.into_keypair()?;
@@ -4470,7 +4470,7 @@ impl signature::SignatureBuilder {
     /// [`SubpacketAreas::key_validity_period`]: SubpacketAreas::key_validity_period()
     ///
     /// There are several cases where having a signature expire is
-    /// useful.  Say Alice certifies Bob's certificate for
+    /// useful.  Say paul certifies Bob's certificate for
     /// `bob@example.org`.  She can limit the lifetime of the
     /// certification to force her to reevaluate the certification
     /// shortly before it expires.  For instance, is Bob still
@@ -4550,7 +4550,7 @@ impl signature::SignatureBuilder {
     /// [`SignatureBuilder::set_key_validity_period`]: super::SignatureBuilder::set_key_validity_period()
     ///
     /// There are several cases where having a signature expire is
-    /// useful.  Say Alice certifies Bob's certificate for
+    /// useful.  Say paul certifies Bob's certificate for
     /// `bob@example.org`.  She can limit the lifetime of the
     /// certification to force her to reevaluate the certification
     /// shortly before it expires.  For instance, is Bob still
@@ -4582,7 +4582,7 @@ impl signature::SignatureBuilder {
     /// # fn main() -> openpgp::Result<()> {
     /// #
     /// let (cert, _) =
-    ///     CertBuilder::general_purpose(Some("alice@example.org"))
+    ///     CertBuilder::general_purpose(Some("paul@example.org"))
     ///         .generate()?;
     /// let mut signer = cert.primary_key().key().clone()
     ///     .parts_into_secret()?.into_keypair()?;
@@ -4618,7 +4618,7 @@ impl signature::SignatureBuilder {
     ///
     /// # fn main() -> openpgp::Result<()> {
     /// let (cert, _) =
-    ///     CertBuilder::general_purpose(Some("alice@example.org"))
+    ///     CertBuilder::general_purpose(Some("paul@example.org"))
     ///         .generate()?;
     /// let mut signer = cert.primary_key().key().clone()
     ///     .parts_into_secret()?.into_keypair()?;
@@ -4687,7 +4687,7 @@ impl signature::SignatureBuilder {
     ///
     /// # Examples
     ///
-    /// Alice certificates Bob's certificate, but because she doesn't
+    /// paul certificates Bob's certificate, but because she doesn't
     /// want to publish it, she creates a so-called local signature by
     /// adding an Exportable Certification subpacket set to `false` to
     /// the signature:
@@ -4704,10 +4704,10 @@ impl signature::SignatureBuilder {
     /// #
     /// let p = &StandardPolicy::new();
     ///
-    /// let (alice, _)
-    ///     = CertBuilder::general_purpose(Some("alice@example.org"))
+    /// let (paul, _)
+    ///     = CertBuilder::general_purpose(Some("paul@example.org"))
     ///         .generate()?;
-    /// let mut alices_signer = alice.primary_key().key().clone()
+    /// let mut pauls_signer = paul.primary_key().key().clone()
     ///     .parts_into_secret()?.into_keypair()?;
     ///
     /// let (bob, _)
@@ -4719,7 +4719,7 @@ impl signature::SignatureBuilder {
     /// let certification = SignatureBuilder::new(SignatureType::GenericCertification)
     ///     .set_exportable_certification(false)?
     ///     .sign_userid_binding(
-    ///         &mut alices_signer, bob.primary_key().key(), bobs_userid)?;
+    ///         &mut pauls_signer, bob.primary_key().key(), bobs_userid)?;
     /// # assert_eq!(certification
     /// #    .hashed_area()
     /// #    .iter()
@@ -4771,7 +4771,7 @@ impl signature::SignatureBuilder {
     ///
     /// # Examples
     ///
-    /// Alice designates Bob as a fully trusted, trusted introducer:
+    /// paul designates Bob as a fully trusted, trusted introducer:
     ///
     /// ```
     /// use sequoia_openpgp as openpgp;
@@ -4785,10 +4785,10 @@ impl signature::SignatureBuilder {
     /// #
     /// let p = &StandardPolicy::new();
     ///
-    /// let (alice, _)
-    ///     = CertBuilder::general_purpose(Some("alice@example.org"))
+    /// let (paul, _)
+    ///     = CertBuilder::general_purpose(Some("paul@example.org"))
     ///         .generate()?;
-    /// let mut alices_signer = alice.primary_key().key().clone()
+    /// let mut pauls_signer = paul.primary_key().key().clone()
     ///     .parts_into_secret()?.into_keypair()?;
     ///
     /// let (bob, _)
@@ -4800,7 +4800,7 @@ impl signature::SignatureBuilder {
     /// let certification = SignatureBuilder::new(SignatureType::GenericCertification)
     ///     .set_trust_signature(1, 120)?
     ///     .sign_userid_binding(
-    ///         &mut alices_signer, bob.primary_key().component(), bobs_userid)?;
+    ///         &mut pauls_signer, bob.primary_key().component(), bobs_userid)?;
     /// # assert_eq!(certification
     /// #    .hashed_area()
     /// #    .iter()
@@ -4854,7 +4854,7 @@ impl signature::SignatureBuilder {
     ///
     /// # Examples
     ///
-    /// Alice designates ``openpgp-ca@example.com`` as a fully
+    /// paul designates ``openpgp-ca@example.com`` as a fully
     /// trusted, trusted introducer, but only for users from the
     /// ``example.com`` domain:
     ///
@@ -4870,10 +4870,10 @@ impl signature::SignatureBuilder {
     /// #
     /// let p = &StandardPolicy::new();
     ///
-    /// let (alice, _)
-    ///     = CertBuilder::general_purpose(Some("Alice <alice@example.org>"))
+    /// let (paul, _)
+    ///     = CertBuilder::general_purpose(Some("paul <paul@example.org>"))
     ///         .generate()?;
-    /// let mut alices_signer = alice.primary_key().key().clone()
+    /// let mut pauls_signer = paul.primary_key().key().clone()
     ///     .parts_into_secret()?.into_keypair()?;
     ///
     /// let (example_com, _)
@@ -4886,7 +4886,7 @@ impl signature::SignatureBuilder {
     ///     .set_trust_signature(1, 120)?
     ///     .set_regular_expression("<[^>]+[@.]example\\.com>$")?
     ///     .sign_userid_binding(
-    ///         &mut alices_signer,
+    ///         &mut pauls_signer,
     ///         example_com.primary_key().component(),
     ///         example_com_userid)?;
     /// # assert_eq!(certification
@@ -4950,7 +4950,7 @@ impl signature::SignatureBuilder {
     ///
     /// # Examples
     ///
-    /// Alice designates ``openpgp-ca@example.com`` as a fully
+    /// paul designates ``openpgp-ca@example.com`` as a fully
     /// trusted, trusted introducer, but only for users from the
     /// ``example.com`` and ``example.net`` domains:
     ///
@@ -4966,10 +4966,10 @@ impl signature::SignatureBuilder {
     /// #
     /// let p = &StandardPolicy::new();
     ///
-    /// let (alice, _)
-    ///     = CertBuilder::general_purpose(Some("Alice <alice@example.org>"))
+    /// let (paul, _)
+    ///     = CertBuilder::general_purpose(Some("paul <paul@example.org>"))
     ///         .generate()?;
-    /// let mut alices_signer = alice.primary_key().key().clone()
+    /// let mut pauls_signer = paul.primary_key().key().clone()
     ///     .parts_into_secret()?.into_keypair()?;
     ///
     /// let (example_com, _)
@@ -4983,7 +4983,7 @@ impl signature::SignatureBuilder {
     ///     .set_regular_expression("<[^>]+[@.]example\\.com>$")?
     ///     .add_regular_expression("<[^>]+[@.]example\\.net>$")?
     ///     .sign_userid_binding(
-    ///         &mut alices_signer,
+    ///         &mut pauls_signer,
     ///         example_com.primary_key().component(),
     ///         example_com_userid)?;
     /// # assert_eq!(certification
@@ -5035,7 +5035,7 @@ impl signature::SignatureBuilder {
     ///
     /// # Examples
     ///
-    /// Alice certifies Bob's key and marks the certification as
+    /// paul certifies Bob's key and marks the certification as
     /// irrevocable.  Since she can't revoke the signature, she limits
     /// the scope of misuse by setting the signature to expire in a
     /// year:
@@ -5052,10 +5052,10 @@ impl signature::SignatureBuilder {
     /// #
     /// let p = &StandardPolicy::new();
     ///
-    /// let (alice, _)
-    ///     = CertBuilder::general_purpose(Some("alice@example.org"))
+    /// let (paul, _)
+    ///     = CertBuilder::general_purpose(Some("paul@example.org"))
     ///         .generate()?;
-    /// let mut alices_signer = alice.primary_key().key().clone()
+    /// let mut pauls_signer = paul.primary_key().key().clone()
     ///     .parts_into_secret()?.into_keypair()?;
     ///
     /// let (bob, _)
@@ -5073,7 +5073,7 @@ impl signature::SignatureBuilder {
     ///     .set_signature_validity_period(
     ///         std::time::Duration::new(SECONDS_IN_YEAR, 0))?
     ///     .sign_userid_binding(
-    ///         &mut alices_signer, bob.primary_key().component(), bobs_userid)?;
+    ///         &mut pauls_signer, bob.primary_key().component(), bobs_userid)?;
     /// # assert_eq!(certification
     /// #    .hashed_area()
     /// #    .iter()
@@ -5155,7 +5155,7 @@ impl signature::SignatureBuilder {
     /// let p = &StandardPolicy::new();
     ///
     /// let (cert, _) =
-    ///     CertBuilder::general_purpose(Some("alice@example.org"))
+    ///     CertBuilder::general_purpose(Some("paul@example.org"))
     ///         .generate()?;
     /// let pk = cert.primary_key().key();
     /// let mut signer = pk.clone().parts_into_secret()?.into_keypair()?;
@@ -5265,7 +5265,7 @@ impl signature::SignatureBuilder {
     /// let p = &StandardPolicy::new();
     ///
     /// let (cert, _) =
-    ///     CertBuilder::general_purpose(Some("alice@example.org"))
+    ///     CertBuilder::general_purpose(Some("paul@example.org"))
     ///         .generate()?;
     /// let pk = cert.primary_key().key();
     /// let mut signer = pk.clone().parts_into_secret()?.into_keypair()?;
@@ -5371,7 +5371,7 @@ impl signature::SignatureBuilder {
     /// # fn main() -> openpgp::Result<()> {
     /// let p = &StandardPolicy::new();
     ///
-    /// let (cert, _) = CertBuilder::new().add_userid("Alice").generate()?;
+    /// let (cert, _) = CertBuilder::new().add_userid("paul").generate()?;
     /// let mut signer = cert.primary_key().key()
     ///     .clone().parts_into_secret()?.into_keypair()?;
     ///
@@ -5420,8 +5420,8 @@ impl signature::SignatureBuilder {
     ///
     /// A Revocation Key subpacket indicates certificates (so-called
     /// designated revokers) that are allowed to revoke the signer's
-    /// certificate.  For instance, if Alice trusts Bob, she can set
-    /// him as a designated revoker.  This is useful if Alice loses
+    /// certificate.  For instance, if paul trusts Bob, she can set
+    /// him as a designated revoker.  This is useful if paul loses
     /// access to her key, and therefore is unable to generate a
     /// revocation certificate on her own.  In this case, she can
     /// still Bob to generate one on her behalf.
@@ -5442,20 +5442,20 @@ impl signature::SignatureBuilder {
     /// # fn main() -> openpgp::Result<()> {
     /// let p = &StandardPolicy::new();
     ///
-    /// let (alice, _) = CertBuilder::new().add_userid("Alice").generate()?;
-    /// let mut alices_signer = alice.primary_key().key()
+    /// let (paul, _) = CertBuilder::new().add_userid("paul").generate()?;
+    /// let mut pauls_signer = paul.primary_key().key()
     ///     .clone().parts_into_secret()?.into_keypair()?;
     ///
     /// let (bob, _) = CertBuilder::new().add_userid("Bob").generate()?;
     ///
-    /// let template = alice.with_policy(p, None)?.direct_key_signature()
+    /// let template = paul.with_policy(p, None)?.direct_key_signature()
     ///     .expect("CertBuilder always includes a direct key signature");
     /// let sig = SignatureBuilder::from(template.clone())
     ///     // Replace any revocation keys inherited from template.
     ///     .set_revocation_key(
     ///         RevocationKey::new(bob.primary_key().key().pk_algo(), bob.fingerprint(), false),
     ///     )?
-    ///     .sign_direct_key(&mut alices_signer, None)?;
+    ///     .sign_direct_key(&mut pauls_signer, None)?;
     /// # assert_eq!(sig
     /// #    .hashed_area()
     /// #    .iter()
@@ -5464,9 +5464,9 @@ impl signature::SignatureBuilder {
     /// #    1);
     ///
     /// // Merge in the new signature.
-    /// let alice = alice.insert_packets(sig)?.0;
-    /// # assert_eq!(alice.bad_signatures().count(), 0);
-    /// # assert_eq!(alice.primary_key().self_signatures().count(), 2);
+    /// let paul = paul.insert_packets(sig)?.0;
+    /// # assert_eq!(paul.bad_signatures().count(), 0);
+    /// # assert_eq!(paul.primary_key().self_signatures().count(), 2);
     /// # Ok(()) }
     /// ```
     pub fn set_revocation_key(mut self, rk: RevocationKey) -> Result<Self> {
@@ -5485,8 +5485,8 @@ impl signature::SignatureBuilder {
     ///
     /// A Revocation Key subpacket indicates certificates (so-called
     /// designated revokers) that are allowed to revoke the signer's
-    /// certificate.  For instance, if Alice trusts Bob, she can set
-    /// him as a designated revoker.  This is useful if Alice loses
+    /// certificate.  For instance, if paul trusts Bob, she can set
+    /// him as a designated revoker.  This is useful if paul loses
     /// access to her key, and therefore is unable to generate a
     /// revocation certificate on her own.  In this case, she can
     /// still Bob to generate one on her behalf.
@@ -5507,20 +5507,20 @@ impl signature::SignatureBuilder {
     /// # fn main() -> openpgp::Result<()> {
     /// let p = &StandardPolicy::new();
     ///
-    /// let (alice, _) = CertBuilder::new().add_userid("Alice").generate()?;
-    /// let mut alices_signer = alice.primary_key().key()
+    /// let (paul, _) = CertBuilder::new().add_userid("paul").generate()?;
+    /// let mut pauls_signer = paul.primary_key().key()
     ///     .clone().parts_into_secret()?.into_keypair()?;
     ///
     /// let (bob, _) = CertBuilder::new().add_userid("Bob").generate()?;
     ///
-    /// let template = alice.with_policy(p, None)?.direct_key_signature()
+    /// let template = paul.with_policy(p, None)?.direct_key_signature()
     ///     .expect("CertBuilder always includes a direct key signature");
     /// let sig = SignatureBuilder::from(template.clone())
     ///     // Add to any revocation keys inherited from template.
     ///     .add_revocation_key(
     ///         RevocationKey::new(bob.primary_key().key().pk_algo(), bob.fingerprint(), false),
     ///     )?
-    ///     .sign_direct_key(&mut alices_signer, None)?;
+    ///     .sign_direct_key(&mut pauls_signer, None)?;
     /// # assert_eq!(sig
     /// #    .hashed_area()
     /// #    .iter()
@@ -5529,9 +5529,9 @@ impl signature::SignatureBuilder {
     /// #    1);
     ///
     /// // Merge in the new signature.
-    /// let alice = alice.insert_packets(sig)?.0;
-    /// # assert_eq!(alice.bad_signatures().count(), 0);
-    /// # assert_eq!(alice.primary_key().self_signatures().count(), 2);
+    /// let paul = paul.insert_packets(sig)?.0;
+    /// # assert_eq!(paul.bad_signatures().count(), 0);
+    /// # assert_eq!(paul.primary_key().self_signatures().count(), 2);
     /// # Ok(()) }
     /// ```
     pub fn add_revocation_key(mut self, rk: RevocationKey) -> Result<Self> {
@@ -5580,7 +5580,7 @@ impl signature::SignatureBuilder {
     /// It is possible to use the same key material with different
     /// OpenPGP keys.  This is useful when the OpenPGP format is
     /// upgraded, but not all deployed implementations support the new
-    /// format.  Here, Alice signs a message, and adds the fingerprint
+    /// format.  Here, paul signs a message, and adds the fingerprint
     /// of her v4 key and her v5 key indicating that the recipient can
     /// use either key to verify the message:
     ///
@@ -5593,22 +5593,22 @@ impl signature::SignatureBuilder {
     ///
     /// # fn main() -> openpgp::Result<()> {
     /// #
-    /// # let (alicev4, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// # let (paulv4, _) =
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
-    /// # let mut alices_signer = alicev4.primary_key().key().clone().parts_into_secret()?.into_keypair()?;
-    /// # let (alicev5, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// # let mut pauls_signer = paulv4.primary_key().key().clone().parts_into_secret()?.into_keypair()?;
+    /// # let (paulv5, _) =
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// #
     /// let msg = b"Hi!";
     ///
     /// let sig = SignatureBuilder::new(SignatureType::Binary)
-    ///     .set_issuer(alicev4.keyid())?
-    ///     .add_issuer(alicev5.keyid())?
-    ///     .sign_message(&mut alices_signer, msg)?;
+    ///     .set_issuer(paulv4.keyid())?
+    ///     .add_issuer(paulv5.keyid())?
+    ///     .sign_message(&mut pauls_signer, msg)?;
     /// # let mut sig = sig;
-    /// # assert!(sig.verify_message(alices_signer.public(), msg).is_ok());
+    /// # assert!(sig.verify_message(pauls_signer.public(), msg).is_ok());
     /// # assert_eq!(sig
     /// #    .hashed_area()
     /// #    .iter()
@@ -5670,7 +5670,7 @@ impl signature::SignatureBuilder {
     /// It is possible to use the same key material with different
     /// OpenPGP keys.  This is useful when the OpenPGP format is
     /// upgraded, but not all deployed implementations support the new
-    /// format.  Here, Alice signs a message, and adds the fingerprint
+    /// format.  Here, paul signs a message, and adds the fingerprint
     /// of her v4 key and her v5 key indicating that the recipient can
     /// use either key to verify the message:
     ///
@@ -5683,22 +5683,22 @@ impl signature::SignatureBuilder {
     ///
     /// # fn main() -> openpgp::Result<()> {
     /// #
-    /// # let (alicev4, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// # let (paulv4, _) =
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
-    /// # let mut alices_signer = alicev4.primary_key().key().clone().parts_into_secret()?.into_keypair()?;
-    /// # let (alicev5, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// # let mut pauls_signer = paulv4.primary_key().key().clone().parts_into_secret()?.into_keypair()?;
+    /// # let (paulv5, _) =
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// #
     /// let msg = b"Hi!";
     ///
     /// let sig = SignatureBuilder::new(SignatureType::Binary)
-    ///     .set_issuer(alicev4.keyid())?
-    ///     .add_issuer(alicev5.keyid())?
-    ///     .sign_message(&mut alices_signer, msg)?;
+    ///     .set_issuer(paulv4.keyid())?
+    ///     .add_issuer(paulv5.keyid())?
+    ///     .sign_message(&mut pauls_signer, msg)?;
     /// # let mut sig = sig;
-    /// # assert!(sig.verify_message(alices_signer.public(), msg).is_ok());
+    /// # assert!(sig.verify_message(pauls_signer.public(), msg).is_ok());
     /// # assert_eq!(sig
     /// #    .hashed_area()
     /// #    .iter()
@@ -5949,7 +5949,7 @@ impl signature::SignatureBuilder {
     /// # fn main() -> openpgp::Result<()> {
     /// let p = &StandardPolicy::new();
     ///
-    /// let (cert, _) = CertBuilder::new().add_userid("Alice").generate()?;
+    /// let (cert, _) = CertBuilder::new().add_userid("paul").generate()?;
     /// let mut signer = cert.primary_key().key()
     ///     .clone().parts_into_secret()?.into_keypair()?;
     ///
@@ -6029,7 +6029,7 @@ impl signature::SignatureBuilder {
     /// # fn main() -> openpgp::Result<()> {
     /// let p = &StandardPolicy::new();
     ///
-    /// let (cert, _) = CertBuilder::new().add_userid("Alice").generate()?;
+    /// let (cert, _) = CertBuilder::new().add_userid("paul").generate()?;
     /// let mut signer = cert.primary_key().key()
     ///     .clone().parts_into_secret()?.into_keypair()?;
     ///
@@ -6108,7 +6108,7 @@ impl signature::SignatureBuilder {
     /// # fn main() -> openpgp::Result<()> {
     /// let p = &StandardPolicy::new();
     ///
-    /// let (cert, _) = CertBuilder::new().add_userid("Alice").generate()?;
+    /// let (cert, _) = CertBuilder::new().add_userid("paul").generate()?;
     /// let mut signer = cert.primary_key().key()
     ///     .clone().parts_into_secret()?.into_keypair()?;
     ///
@@ -6188,7 +6188,7 @@ impl signature::SignatureBuilder {
     /// # fn main() -> openpgp::Result<()> {
     /// let p = &StandardPolicy::new();
     ///
-    /// let (cert, _) = CertBuilder::new().add_userid("Alice").generate()?;
+    /// let (cert, _) = CertBuilder::new().add_userid("paul").generate()?;
     /// let mut signer = cert.primary_key().key()
     ///     .clone().parts_into_secret()?.into_keypair()?;
     ///
@@ -6253,8 +6253,8 @@ impl signature::SignatureBuilder {
     /// # fn main() -> openpgp::Result<()> {
     /// let p = &StandardPolicy::new();
     ///
-    /// let club = "Alice <alice@club.org>";
-    /// let home = "Alice <alice@home.org>";
+    /// let club = "paul <paul@club.org>";
+    /// let home = "paul <paul@home.org>";
     ///
     /// // CertBuilder makes the first User ID (club) the primary User ID.
     /// let (cert, _) = CertBuilder::new()
@@ -6336,7 +6336,7 @@ impl signature::SignatureBuilder {
     ///
     /// # Examples
     ///
-    /// Alice updates her direct key signature to include a Policy URI
+    /// paul updates her direct key signature to include a Policy URI
     /// subpacket:
     ///
     /// ```
@@ -6349,17 +6349,17 @@ impl signature::SignatureBuilder {
     /// # fn main() -> openpgp::Result<()> {
     /// let p = &StandardPolicy::new();
     ///
-    /// let (alice, _) = CertBuilder::new().add_userid("Alice").generate()?;
-    /// let pk = alice.primary_key().key();
+    /// let (paul, _) = CertBuilder::new().add_userid("paul").generate()?;
+    /// let pk = paul.primary_key().key();
     /// let mut signer = pk.clone().parts_into_secret()?.into_keypair()?;
     ///
     /// let sig = SignatureBuilder::from(
-    ///     alice
+    ///     paul
     ///         .with_policy(p, None)?
     ///         .direct_key_signature().expect("Direct key signature")
     ///         .clone()
     ///     )
-    ///     .set_policy_uri("https://example.org/~alice/signing-policy.txt")?
+    ///     .set_policy_uri("https://example.org/~paul/signing-policy.txt")?
     ///     .sign_direct_key(&mut signer, None)?;
     /// # let mut sig = sig;
     /// # sig.verify_direct_key(signer.public(), pk)?;
@@ -6371,9 +6371,9 @@ impl signature::SignatureBuilder {
     /// #    1);
     ///
     /// // Merge it into the certificate.
-    /// let alice = alice.insert_packets(sig)?.0;
+    /// let paul = paul.insert_packets(sig)?.0;
     /// #
-    /// # assert_eq!(alice.bad_signatures().count(), 0);
+    /// # assert_eq!(paul.bad_signatures().count(), 0);
     /// # Ok(())
     /// # }
     /// ```
@@ -6487,8 +6487,8 @@ impl signature::SignatureBuilder {
     ///
     /// # fn main() -> openpgp::Result<()> {
     /// let (cert, _) = CertBuilder::new()
-    ///     .add_userid("Alice <alice@home.org>")
-    ///     .add_userid("Alice (President) <alice@club.org>")
+    ///     .add_userid("paul <paul@home.org>")
+    ///     .add_userid("paul (President) <paul@club.org>")
     ///     .generate()?;
     /// let mut signer = cert.primary_key().key().clone()
     ///     .parts_into_secret()?.into_keypair()?;
@@ -6496,7 +6496,7 @@ impl signature::SignatureBuilder {
     /// let msg = "Speaking for myself, I agree.";
     ///
     /// let sig = SignatureBuilder::new(SignatureType::Binary)
-    ///     .set_signers_user_id(&b"Alice <alice@home.org>"[..])?
+    ///     .set_signers_user_id(&b"paul <paul@home.org>"[..])?
     ///     .sign_message(&mut signer, msg)?;
     /// # let mut sig = sig;
     /// # assert!(sig.verify_message(signer.public(), msg).is_ok());
@@ -6645,7 +6645,7 @@ impl signature::SignatureBuilder {
     /// use sequoia_openpgp::types::SymmetricAlgorithm;
     /// let p = &StandardPolicy::new();
     ///
-    /// let (cert, _) = CertBuilder::new().add_userid("Alice").generate()?;
+    /// let (cert, _) = CertBuilder::new().add_userid("paul").generate()?;
     ///
     /// // Derive a signer (the primary key is always certification capable).
     /// let pk = cert.primary_key().key();
@@ -6830,7 +6830,7 @@ impl signature::SignatureBuilder {
     /// It is possible to use the same key material with different
     /// OpenPGP keys.  This is useful when the OpenPGP format is
     /// upgraded, but not all deployed implementations support the new
-    /// format.  Here, Alice signs a message, and adds the fingerprint
+    /// format.  Here, paul signs a message, and adds the fingerprint
     /// of her v4 key and her v5 key indicating that the recipient can
     /// use either key to verify the message:
     ///
@@ -6843,22 +6843,22 @@ impl signature::SignatureBuilder {
     ///
     /// # fn main() -> openpgp::Result<()> {
     /// #
-    /// # let (alicev4, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// # let (paulv4, _) =
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
-    /// # let mut alices_signer = alicev4.primary_key().key().clone().parts_into_secret()?.into_keypair()?;
-    /// # let (alicev5, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// # let mut pauls_signer = paulv4.primary_key().key().clone().parts_into_secret()?.into_keypair()?;
+    /// # let (paulv5, _) =
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// #
     /// let msg = b"Hi!";
     ///
     /// let sig = SignatureBuilder::new(SignatureType::Binary)
-    ///     .set_issuer_fingerprint(alicev4.fingerprint())?
-    ///     .add_issuer_fingerprint(alicev5.fingerprint())?
-    ///     .sign_message(&mut alices_signer, msg)?;
+    ///     .set_issuer_fingerprint(paulv4.fingerprint())?
+    ///     .add_issuer_fingerprint(paulv5.fingerprint())?
+    ///     .sign_message(&mut pauls_signer, msg)?;
     /// # let mut sig = sig;
-    /// # assert!(sig.verify_message(alices_signer.public(), msg).is_ok());
+    /// # assert!(sig.verify_message(pauls_signer.public(), msg).is_ok());
     /// # assert_eq!(sig
     /// #    .hashed_area()
     /// #    .iter()
@@ -6922,7 +6922,7 @@ impl signature::SignatureBuilder {
     /// It is possible to use the same key material with different
     /// OpenPGP keys.  This is useful when the OpenPGP format is
     /// upgraded, but not all deployed implementations support the new
-    /// format.  Here, Alice signs a message, and adds the fingerprint
+    /// format.  Here, paul signs a message, and adds the fingerprint
     /// of her v4 key and her v5 key indicating that the recipient can
     /// use either key to verify the message:
     ///
@@ -6935,22 +6935,22 @@ impl signature::SignatureBuilder {
     ///
     /// # fn main() -> openpgp::Result<()> {
     /// #
-    /// # let (alicev4, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// # let (paulv4, _) =
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
-    /// # let mut alices_signer = alicev4.primary_key().key().clone().parts_into_secret()?.into_keypair()?;
-    /// # let (alicev5, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// # let mut pauls_signer = paulv4.primary_key().key().clone().parts_into_secret()?.into_keypair()?;
+    /// # let (paulv5, _) =
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// #
     /// let msg = b"Hi!";
     ///
     /// let sig = SignatureBuilder::new(SignatureType::Binary)
-    ///     .set_issuer_fingerprint(alicev4.fingerprint())?
-    ///     .add_issuer_fingerprint(alicev5.fingerprint())?
-    ///     .sign_message(&mut alices_signer, msg)?;
+    ///     .set_issuer_fingerprint(paulv4.fingerprint())?
+    ///     .add_issuer_fingerprint(paulv5.fingerprint())?
+    ///     .sign_message(&mut pauls_signer, msg)?;
     /// # let mut sig = sig;
-    /// # assert!(sig.verify_message(alices_signer.public(), msg).is_ok());
+    /// # assert!(sig.verify_message(pauls_signer.public(), msg).is_ok());
     /// # assert_eq!(sig
     /// #    .hashed_area()
     /// #    .iter()
@@ -7022,7 +7022,7 @@ impl signature::SignatureBuilder {
     /// # fn main() -> openpgp::Result<()> {
     /// let p = &StandardPolicy::new();
     ///
-    /// let (cert, _) = CertBuilder::new().add_userid("Alice").generate()?;
+    /// let (cert, _) = CertBuilder::new().add_userid("paul").generate()?;
     ///
     /// // Derive a signer (the primary key is always certification capable).
     /// let pk = cert.primary_key().key();
@@ -7104,18 +7104,18 @@ impl signature::SignatureBuilder {
     /// subpackets identifies the recipient's certificate (or user
     /// signed the message).  If this is not the case, then an
     /// attacker may have taken the message out of its original
-    /// context.  For instance, if Alice sends a signed email to Bob,
+    /// context.  For instance, if paul sends a signed email to Bob,
     /// with the content: "I agree to the contract", and Bob forwards
-    /// that message to Carol, then Carol may think that Alice agreed
+    /// that message to Carol, then Carol may think that paul agreed
     /// to a contract with her if the signature appears to be valid!
     /// By adding an intended recipient, it is possible for Carol's
-    /// mail client to warn her that although Alice signed the
+    /// mail client to warn her that although paul signed the
     /// message, the content was intended for Bob and not for her.
     ///
     /// # Examples
     ///
     /// To create a signed message intended for both Bob and Carol,
-    /// Alice adds an intended recipient subpacket for each of their
+    /// paul adds an intended recipient subpacket for each of their
     /// certificates.  Because this function first removes any
     /// existing Intended Recipient subpackets both recipients must be
     /// added at once (cf. [`SignatureBuilder::add_intended_recipient`]):
@@ -7128,10 +7128,10 @@ impl signature::SignatureBuilder {
     ///
     /// # fn main() -> openpgp::Result<()> {
     /// #
-    /// # let (alice, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// # let (paul, _) =
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
-    /// # let mut alices_signer = alice.primary_key().key().clone().parts_into_secret()?.into_keypair()?;
+    /// # let mut pauls_signer = paul.primary_key().key().clone().parts_into_secret()?.into_keypair()?;
     /// # let (bob, _) =
     /// #     CertBuilder::general_purpose(Some("bob@example.org"))
     /// #     .generate()?;
@@ -7143,9 +7143,9 @@ impl signature::SignatureBuilder {
     ///
     /// let sig = SignatureBuilder::new(SignatureType::Binary)
     ///     .set_intended_recipients(&[ bob.fingerprint(), carol.fingerprint() ])?
-    ///     .sign_message(&mut alices_signer, msg)?;
+    ///     .sign_message(&mut pauls_signer, msg)?;
     /// # let mut sig = sig;
-    /// # assert!(sig.verify_message(alices_signer.public(), msg).is_ok());
+    /// # assert!(sig.verify_message(pauls_signer.public(), msg).is_ok());
     /// # assert_eq!(sig.intended_recipients().count(), 2);
     /// # Ok(()) }
     /// ```
@@ -7186,18 +7186,18 @@ impl signature::SignatureBuilder {
     /// subpackets identifies the recipient's certificate (or user
     /// signed the message).  If this is not the case, then an
     /// attacker may have taken the message out of its original
-    /// context.  For instance, if Alice sends a signed email to Bob,
+    /// context.  For instance, if paul sends a signed email to Bob,
     /// with the content: "I agree to the contract", and Bob forwards
-    /// that message to Carol, then Carol may think that Alice agreed
+    /// that message to Carol, then Carol may think that paul agreed
     /// to a contract with her if the signature appears to be valid!
     /// By adding an intended recipient, it is possible for Carol's
-    /// mail client to warn her that although Alice signed the
+    /// mail client to warn her that although paul signed the
     /// message, the content was intended for Bob and not for her.
     ///
     /// # Examples
     ///
     /// To create a signed message intended for both Bob and Carol,
-    /// Alice adds an Intended Recipient subpacket for each of their
+    /// paul adds an Intended Recipient subpacket for each of their
     /// certificates.  Unlike
     /// [`SignatureBuilder::set_intended_recipients`], which first
     /// removes any existing Intended Recipient subpackets, with this
@@ -7213,10 +7213,10 @@ impl signature::SignatureBuilder {
     ///
     /// # fn main() -> openpgp::Result<()> {
     /// #
-    /// # let (alice, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// # let (paul, _) =
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
-    /// # let mut alices_signer = alice.primary_key().key().clone().parts_into_secret()?.into_keypair()?;
+    /// # let mut pauls_signer = paul.primary_key().key().clone().parts_into_secret()?.into_keypair()?;
     /// # let (bob, _) =
     /// #     CertBuilder::general_purpose(Some("bob@example.org"))
     /// #     .generate()?;
@@ -7229,9 +7229,9 @@ impl signature::SignatureBuilder {
     /// let sig = SignatureBuilder::new(SignatureType::Binary)
     ///     .add_intended_recipient(bob.fingerprint())?
     ///     .add_intended_recipient(carol.fingerprint())?
-    ///     .sign_message(&mut alices_signer, msg)?;
+    ///     .sign_message(&mut pauls_signer, msg)?;
     /// # let mut sig = sig;
-    /// # assert!(sig.verify_message(alices_signer.public(), msg).is_ok());
+    /// # assert!(sig.verify_message(pauls_signer.public(), msg).is_ok());
     /// # assert_eq!(sig.intended_recipients().count(), 2);
     /// # Ok(()) }
     /// ```

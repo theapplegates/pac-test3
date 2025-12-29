@@ -19,17 +19,17 @@
 //! # Examples
 //!
 //! First, we generate two keys.  Second, we encrypt a message for
-//! both certs.  We then decrypt the original message using Alice's
+//! both certs.  We then decrypt the original message using paul's
 //! key and this example program, composing an encrypted reply reusing
 //! the session key and PKESK packets.  Finally, we decrypt the reply
 //! using Bob's key.
 //!
 //! ```sh
-//! $ sqop generate-key alice@example.org > alice.pgp
+//! $ sqop generate-key paul@example.org > paul.pgp
 //! $ sqop generate-key bob@example.org > bob.pgp
-//! $ echo Original message | sqop encrypt alice.pgp bob.pgp > original.pgp
+//! $ echo Original message | sqop encrypt paul.pgp bob.pgp > original.pgp
 //! $ echo Reply | cargo run -p sequoia-openpgp --example reply-encrypted -- \
-//!                    original.pgp alice.pgp > reply.pgp
+//!                    original.pgp paul.pgp > reply.pgp
 //! $ sqop decrypt --session-key-out original.sk bob.pgp < reply.pgp
 //! Encrypted using AES with 256-bit key
 //! - Original message:

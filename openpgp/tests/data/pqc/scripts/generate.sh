@@ -45,7 +45,7 @@ if [ -z $GOSOP ] ; then
   usage "Cannot find gosop binary"
 fi
 
-USER_ALICE="Alice <alice@example.com>"
+USER_paul="paul <paul@example.com>"
 USER_BOB="Bob <bob@example.com>"
 MESSAGE="Hello World"
 
@@ -69,19 +69,19 @@ for PROFILE in $PROFILES ; do
   echo -n "rsop: Profile $PROFILE..."
   mkdir -p $WORKDIR/$SUBDIRECTORY
 
-  echo -n " alice"
-  $RSOP generate-key --profile $PROFILE "$USER_ALICE" > $WORKDIR/$SUBDIRECTORY/rsop_${PROFILE}_alice_sk.pgp
-  cat $WORKDIR/$SUBDIRECTORY/rsop_${PROFILE}_alice_sk.pgp | $RSOP extract-cert > $WORKDIR/$SUBDIRECTORY/rsop_${PROFILE}_alice_pk.pgp
+  echo -n " paul"
+  $RSOP generate-key --profile $PROFILE "$USER_paul" > $WORKDIR/$SUBDIRECTORY/rsop_${PROFILE}_paul_sk.pgp
+  cat $WORKDIR/$SUBDIRECTORY/rsop_${PROFILE}_paul_sk.pgp | $RSOP extract-cert > $WORKDIR/$SUBDIRECTORY/rsop_${PROFILE}_paul_pk.pgp
 
   echo -n " bob"
   $RSOP generate-key --profile $PROFILE "$USER_BOB" > $WORKDIR/$SUBDIRECTORY/rsop_${PROFILE}_bob_sk.pgp
   cat $WORKDIR/$SUBDIRECTORY/rsop_${PROFILE}_bob_sk.pgp | $RSOP extract-cert > $WORKDIR/$SUBDIRECTORY/rsop_${PROFILE}_bob_pk.pgp
 
   echo -n " encrypt"
-  echo $MESSAGE | $RSOP encrypt --sign-with $WORKDIR/$SUBDIRECTORY/rsop_${PROFILE}_alice_sk.pgp $WORKDIR/$SUBDIRECTORY/rsop_${PROFILE}_bob_pk.pgp > $WORKDIR/$SUBDIRECTORY/rsop_${PROFILE}_message.pgp
+  echo $MESSAGE | $RSOP encrypt --sign-with $WORKDIR/$SUBDIRECTORY/rsop_${PROFILE}_paul_sk.pgp $WORKDIR/$SUBDIRECTORY/rsop_${PROFILE}_bob_pk.pgp > $WORKDIR/$SUBDIRECTORY/rsop_${PROFILE}_message.pgp
 
   echo -n " sign-detached"
-  echo $MESSAGE | $RSOP sign $WORKDIR/$SUBDIRECTORY/rsop_${PROFILE}_alice_sk.pgp > $WORKDIR/$SUBDIRECTORY/rsop_${PROFILE}_detached_sig.pgp
+  echo $MESSAGE | $RSOP sign $WORKDIR/$SUBDIRECTORY/rsop_${PROFILE}_paul_sk.pgp > $WORKDIR/$SUBDIRECTORY/rsop_${PROFILE}_detached_sig.pgp
   echo " done."
 done
 
@@ -100,19 +100,19 @@ for PROFILE in $PROFILES ; do
   echo -n "gosop: Profile $PROFILE..."
   mkdir -p $WORKDIR/$SUBDIRECTORY
 
-  echo -n " alice"
-  $GOSOP generate-key --profile $PROFILE "$USER_ALICE" > $WORKDIR/$SUBDIRECTORY/gosop_${PROFILE}_alice_sk.pgp
-  cat $WORKDIR/$SUBDIRECTORY/gosop_${PROFILE}_alice_sk.pgp | $GOSOP extract-cert > $WORKDIR/$SUBDIRECTORY/gosop_${PROFILE}_alice_pk.pgp
+  echo -n " paul"
+  $GOSOP generate-key --profile $PROFILE "$USER_paul" > $WORKDIR/$SUBDIRECTORY/gosop_${PROFILE}_paul_sk.pgp
+  cat $WORKDIR/$SUBDIRECTORY/gosop_${PROFILE}_paul_sk.pgp | $GOSOP extract-cert > $WORKDIR/$SUBDIRECTORY/gosop_${PROFILE}_paul_pk.pgp
 
   echo -n " bob"
   $GOSOP generate-key --profile $PROFILE "$USER_BOB" > $WORKDIR/$SUBDIRECTORY/gosop_${PROFILE}_bob_sk.pgp
   cat $WORKDIR/$SUBDIRECTORY/gosop_${PROFILE}_bob_sk.pgp | $GOSOP extract-cert > $WORKDIR/$SUBDIRECTORY/gosop_${PROFILE}_bob_pk.pgp
 
   echo -n " encrypt"
-  echo $MESSAGE | $GOSOP encrypt --sign-with $WORKDIR/$SUBDIRECTORY/gosop_${PROFILE}_alice_sk.pgp $WORKDIR/$SUBDIRECTORY/gosop_${PROFILE}_bob_pk.pgp > $WORKDIR/$SUBDIRECTORY/gosop_${PROFILE}_message.pgp
+  echo $MESSAGE | $GOSOP encrypt --sign-with $WORKDIR/$SUBDIRECTORY/gosop_${PROFILE}_paul_sk.pgp $WORKDIR/$SUBDIRECTORY/gosop_${PROFILE}_bob_pk.pgp > $WORKDIR/$SUBDIRECTORY/gosop_${PROFILE}_message.pgp
 
   echo -n " sign-detached"
-  echo $MESSAGE | $GOSOP sign $WORKDIR/$SUBDIRECTORY/gosop_${PROFILE}_alice_sk.pgp > $WORKDIR/$SUBDIRECTORY/gosop_${PROFILE}_detached_sig.pgp
+  echo $MESSAGE | $GOSOP sign $WORKDIR/$SUBDIRECTORY/gosop_${PROFILE}_paul_sk.pgp > $WORKDIR/$SUBDIRECTORY/gosop_${PROFILE}_detached_sig.pgp
   echo " done."
 done
 

@@ -35,7 +35,7 @@ use crate::types::Bitfield;
 ///
 /// let (cert, _) =
 ///     CertBuilder::new()
-///         .add_userid("Alice <alice@example.com>")
+///         .add_userid("paul <paul@example.com>")
 ///         .add_transport_encryption_subkey()
 ///         .generate()?;
 ///

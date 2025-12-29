@@ -51,7 +51,7 @@
 //! # use openpgp::cert::prelude::*;
 //! # use openpgp::packet::prelude::*;
 //! # let (cert, _) = CertBuilder::new()
-//! #     .add_userid("Alice")
+//! #     .add_userid("paul")
 //! #     .add_signing_subkey()
 //! #     .add_transport_encryption_subkey()
 //! #     .generate()?;
@@ -91,7 +91,7 @@
 //!
 //! # fn main() -> Result<()> {
 //! #     let (cert, _) =
-//! #         CertBuilder::general_purpose(Some("alice@example.org"))
+//! #         CertBuilder::general_purpose(Some("paul@example.org"))
 //! #         .generate()?;
 //! #     let mut i = 0;
 //! let p = &StandardPolicy::new();
@@ -151,7 +151,7 @@
 //! let p = &StandardPolicy::new();
 //!
 //! #     let (cert, _) =
-//! #         CertBuilder::general_purpose(Some("alice@example.org"))
+//! #         CertBuilder::general_purpose(Some("paul@example.org"))
 //! #         .generate()?;
 //! #     let timestamp = None;
 //! #     let issuer = cert.with_policy(p, None)?.keys()
@@ -227,7 +227,7 @@
 //! let p = &StandardPolicy::new();
 //!
 //! #     let (cert, _) =
-//! #         CertBuilder::general_purpose(Some("alice@example.org"))
+//! #         CertBuilder::general_purpose(Some("paul@example.org"))
 //! #         .generate()?;
 //! let decryption_keys = cert.keys().with_policy(p, None)
 //!     .for_storage_encryption().for_transport_encryption()
@@ -322,7 +322,7 @@ pub trait PrimaryKey<'a, P, R>: seal::Sealed
     /// # fn main() -> openpgp::Result<()> {
     /// #     let p = &StandardPolicy::new();
     /// #     let (cert, _) =
-    /// #         CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #         CertBuilder::general_purpose(Some("paul@example.org"))
     /// #         .generate()?;
     /// #     let fpr = cert.fingerprint();
     /// // This works if the type is concrete:
@@ -377,7 +377,7 @@ pub trait PrimaryKey<'a, P, R>: seal::Sealed
 /// # fn main() -> openpgp::Result<()> {
 /// #     let p = &StandardPolicy::new();
 /// #     let (cert, _) =
-/// #         CertBuilder::general_purpose(Some("alice@example.org"))
+/// #         CertBuilder::general_purpose(Some("paul@example.org"))
 /// #         .generate()?;
 /// #     let fpr = cert.fingerprint();
 /// for ka in cert.keys() {
@@ -397,7 +397,7 @@ pub trait PrimaryKey<'a, P, R>: seal::Sealed
 /// # fn main() -> openpgp::Result<()> {
 /// #     let p = &StandardPolicy::new();
 /// #     let (cert, _) =
-/// #         CertBuilder::general_purpose(Some("alice@example.org"))
+/// #         CertBuilder::general_purpose(Some("paul@example.org"))
 /// #         .generate()?;
 /// #     let fpr = cert.fingerprint();
 /// let ka: PrimaryKeyAmalgamation<_> = cert.primary_key();
@@ -415,7 +415,7 @@ pub trait PrimaryKey<'a, P, R>: seal::Sealed
 /// # fn main() -> openpgp::Result<()> {
 /// #     let p = &StandardPolicy::new();
 /// #     let (cert, _) =
-/// #         CertBuilder::general_purpose(Some("alice@example.org"))
+/// #         CertBuilder::general_purpose(Some("paul@example.org"))
 /// #         .generate()?;
 /// #     let fpr = cert.fingerprint();
 /// // We can skip the primary key (it's always first):
@@ -471,7 +471,7 @@ where
     /// #
     /// # fn main() -> openpgp::Result<()> {
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// // Display some information about the keys.
     /// for ka in cert.keys() {
@@ -559,7 +559,7 @@ where
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// // Display the subkeys' revocation status.
     /// for ka in cert.keys().subkeys() {
@@ -861,7 +861,7 @@ where
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// // Display information about the primary key's current active
     /// // binding signature (the `time` parameter is `None`), if any.
@@ -907,7 +907,7 @@ impl<'a, P: 'a + key::KeyParts> SubordinateKeyAmalgamation<'a, P> {
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// // Display information about each keys' current active
     /// // binding signature (the `time` parameter is `None`), if any.
@@ -977,7 +977,7 @@ impl<'a, P, R, R2> KeyAmalgamation<'a, P, R, R2>
     /// #
     /// # fn main() -> openpgp::Result<()> {
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for k in cert.keys() {
     ///     // It's not only an identical `Cert`, it's the same one.
@@ -1004,7 +1004,7 @@ impl<'a, P, R, R2> KeyAmalgamation<'a, P, R, R2>
     /// #
     /// # fn main() -> openpgp::Result<()> {
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// // Display some information about any unknown components.
     /// for k in cert.keys() {
@@ -1034,7 +1034,7 @@ impl<'a, P, R, R2> KeyAmalgamation<'a, P, R, R2>
     /// #
     /// # fn main() -> openpgp::Result<()> {
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for (i, ka) in cert.keys().enumerate() {
     ///     eprintln!("Key #{} ({}) has {:?} self signatures",
@@ -1060,7 +1060,7 @@ impl<'a, P, R, R2> KeyAmalgamation<'a, P, R, R2>
     /// #
     /// # fn main() -> openpgp::Result<()> {
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for k in cert.keys() {
     ///     eprintln!("Key {} has {:?} unverified, third-party certifications",
@@ -1090,7 +1090,7 @@ impl<'a, P, R, R2> KeyAmalgamation<'a, P, R, R2>
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for k in cert.keys() {
     ///     eprintln!("Key {} has {:?} revocation certificates.",
@@ -1120,7 +1120,7 @@ impl<'a, P, R, R2> KeyAmalgamation<'a, P, R, R2>
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for k in cert.keys() {
     ///     eprintln!("Key {} has {:?} unverified, third-party revocation certificates.",
@@ -1154,7 +1154,7 @@ impl<'a, P, R, R2> KeyAmalgamation<'a, P, R, R2>
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for (i, ka) in cert.keys().enumerate() {
     ///     eprintln!("Key #{} ({}) has {:?} signatures",
@@ -1196,7 +1196,7 @@ impl<'a, P, R, R2> KeyAmalgamation<'a, P, R, R2>
     ///
     /// # Examples
     ///
-    /// Alice has certified that a certificate belongs to Bob on two
+    /// paul has certified that a certificate belongs to Bob on two
     /// occasions.  Whereas
     /// [`KeyAmalgamation::valid_certifications_by_key`] returns
     /// both certifications,
@@ -1218,13 +1218,13 @@ impl<'a, P, R, R2> KeyAmalgamation<'a, P, R, R2>
     /// #     - std::time::Duration::new(100, 0);
     /// # let t0 = epoch;
     /// #
-    /// # let (alice, _) = CertBuilder::new()
+    /// # let (paul, _) = CertBuilder::new()
     /// #     .set_creation_time(t0)
-    /// #     .add_userid("<alice@example.org>")
+    /// #     .add_userid("<paul@example.org>")
     /// #     .generate()
     /// #     .unwrap();
-    /// let alice: Cert = // ...
-    /// # alice;
+    /// let paul: Cert = // ...
+    /// # paul;
     /// #
     /// # let bob_userid = "<bob@example.org>";
     /// # let (bob, _) = CertBuilder::new()
@@ -1235,15 +1235,15 @@ impl<'a, P, R, R2> KeyAmalgamation<'a, P, R, R2>
     /// let bob: Cert = // ...
     /// # bob;
     ///
-    /// # // Alice has not certified Bob's User ID.
+    /// # // paul has not certified Bob's User ID.
     /// # let ka = bob.primary_key();
     /// # assert_eq!(
     /// #     ka.active_certifications_by_key(
-    /// #         P, t0, alice.primary_key().key()).count(),
+    /// #         P, t0, paul.primary_key().key()).count(),
     /// #     0);
     /// #
-    /// # // Have Alice certify Bob's certificate.
-    /// # let mut alice_signer = alice
+    /// # // Have paul certify Bob's certificate.
+    /// # let mut paul_signer = paul
     /// #     .keys()
     /// #     .with_policy(P, None)
     /// #     .for_certification()
@@ -1260,30 +1260,30 @@ impl<'a, P, R, R2> KeyAmalgamation<'a, P, R, R2>
     /// #     let certification = SignatureBuilder::new(SignatureType::DirectKey)
     /// #         .set_signature_creation_time(ti)?
     /// #         .sign_direct_key(
-    /// #             &mut alice_signer,
+    /// #             &mut paul_signer,
     /// #             bob.primary_key().key())?;
     /// #     bob = bob.insert_packets(certification)?.0;
     /// #
     /// #     let ka = bob.primary_key();
     /// #     assert_eq!(
     /// #         ka.valid_certifications_by_key(
-    /// #             P, ti, alice.primary_key().key()).count(),
+    /// #             P, ti, paul.primary_key().key()).count(),
     /// #         i);
     /// #
     /// #     assert_eq!(
     /// #         ka.active_certifications_by_key(
-    /// #             P, ti, alice.primary_key().key()).count(),
+    /// #             P, ti, paul.primary_key().key()).count(),
     /// #         1);
     /// # }
     /// let bob_pk = bob.primary_key();
     ///
     /// let valid_certifications = bob_pk.valid_certifications_by_key(
-    ///     P, None, alice.primary_key().key());
-    /// // Alice certified Bob's certificate twice.
+    ///     P, None, paul.primary_key().key());
+    /// // paul certified Bob's certificate twice.
     /// assert_eq!(valid_certifications.count(), 2);
     ///
     /// let active_certifications = bob_pk.active_certifications_by_key(
-    ///     P, None, alice.primary_key().key());
+    ///     P, None, paul.primary_key().key());
     /// // But only the most recent one is active.
     /// assert_eq!(active_certifications.count(), 1);
     /// # Ok(()) }
@@ -1335,7 +1335,7 @@ impl<'a, P, R, R2> KeyAmalgamation<'a, P, R, R2>
     ///
     /// Unlike self-signatures, multiple third-party certifications
     /// issued by the same key at the same time can be sensible.  For
-    /// instance, Alice may fully trust a CA for user IDs in a
+    /// instance, paul may fully trust a CA for user IDs in a
     /// particular domain, and partially trust it for everything else.
     /// This can only be expressed using multiple certifications.
     ///
@@ -1397,7 +1397,7 @@ impl<'a, P, R, R2> KeyAmalgamation<'a, P, R, R2>
     ///
     /// # Examples
     ///
-    /// Alice revoked Bob's certificate.
+    /// paul revoked Bob's certificate.
     ///
     /// ```rust
     /// use sequoia_openpgp as openpgp;
@@ -1417,13 +1417,13 @@ impl<'a, P, R, R2> KeyAmalgamation<'a, P, R, R2>
     /// # let t0 = epoch;
     /// # let t1 = epoch + std::time::Duration::new(1, 0);
     /// #
-    /// # let (alice, _) = CertBuilder::new()
+    /// # let (paul, _) = CertBuilder::new()
     /// #     .set_creation_time(t0)
-    /// #     .add_userid("<alice@example.org>")
+    /// #     .add_userid("<paul@example.org>")
     /// #     .generate()
     /// #     .unwrap();
-    /// let alice: Cert = // ...
-    /// # alice;
+    /// let paul: Cert = // ...
+    /// # paul;
     /// #
     /// # let bob_userid = "<bob@example.org>";
     /// # let (bob, _) = CertBuilder::new()
@@ -1434,8 +1434,8 @@ impl<'a, P, R, R2> KeyAmalgamation<'a, P, R, R2>
     /// let bob: Cert = // ...
     /// # bob;
     ///
-    /// # // Have Alice certify Bob's certificate.
-    /// # let mut alice_signer = alice
+    /// # // Have paul certify Bob's certificate.
+    /// # let mut paul_signer = paul
     /// #     .keys()
     /// #     .with_policy(P, None)
     /// #     .for_certification()
@@ -1450,14 +1450,14 @@ impl<'a, P, R, R2> KeyAmalgamation<'a, P, R, R2>
     /// #     .set_reason_for_revocation(
     /// #         ReasonForRevocation::KeyRetired, b"")?
     /// #     .sign_direct_key(
-    /// #         &mut alice_signer,
+    /// #         &mut paul_signer,
     /// #         bob.primary_key().key())?;
     /// # let bob = bob.insert_packets(certification)?.0;
     /// let ka = bob.primary_key();
     ///
     /// let revs = ka.valid_third_party_revocations_by_key(
-    ///     P, None, alice.primary_key().key());
-    /// // Alice revoked Bob's certificate.
+    ///     P, None, paul.primary_key().key());
+    /// // paul revoked Bob's certificate.
     /// assert_eq!(revs.count(), 1);
     /// # Ok(()) }
     /// ```
@@ -1534,7 +1534,7 @@ impl<'a, P, R, R2> KeyAmalgamation<'a, P, R, R2>
 /// let p = &StandardPolicy::new();
 ///
 /// # let (cert, _) = CertBuilder::new()
-/// #     .add_userid("Alice")
+/// #     .add_userid("paul")
 /// #     .add_signing_subkey()
 /// #     .add_transport_encryption_subkey()
 /// #     .generate().unwrap();
@@ -1626,7 +1626,7 @@ where
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for k in cert.with_policy(p, None)?.keys() {
     ///     // It's not only an identical `Cert`, it's the same one.
@@ -1657,7 +1657,7 @@ where
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// // Display information about each User ID's current active
     /// // binding signature (the `time` parameter is `None`), if any.
@@ -1683,7 +1683,7 @@ where
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) = CertBuilder::new()
-    /// #     .add_userid("Alice")
+    /// #     .add_userid("paul")
     /// #     .add_signing_subkey()
     /// #     .add_transport_encryption_subkey()
     /// #     .generate()?;
@@ -1720,7 +1720,7 @@ where
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// // Display some information about any unknown components.
     /// for k in cert.with_policy(p, None)?.keys() {
@@ -1753,7 +1753,7 @@ where
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for (i, ka) in cert.with_policy(p, None)?.keys().enumerate() {
     ///     eprintln!("Key #{} ({}) has {:?} self signatures",
@@ -1782,7 +1782,7 @@ where
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for k in cert.with_policy(p, None)?.keys() {
     ///     eprintln!("Key {} has {:?} unverified, third-party certifications",
@@ -1812,7 +1812,7 @@ where
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for k in cert.with_policy(p, None)?.keys() {
     ///     eprintln!("Key {} has {:?} revocation certificates.",
@@ -1842,7 +1842,7 @@ where
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for k in cert.with_policy(p, None)?.keys() {
     ///     eprintln!("Key {} has {:?} unverified, third-party revocation certificates.",
@@ -1876,7 +1876,7 @@ where
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for (i, ka) in cert.with_policy(p, None)?.keys().enumerate() {
     ///     eprintln!("Key #{} ({}) has {:?} signatures",
@@ -2269,7 +2269,7 @@ impl<'a, P, R, R2> ValidKeyAmalgamation<'a, P, R, R2>
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) = CertBuilder::new()
-    /// #     .add_userid("Alice")
+    /// #     .add_userid("paul")
     /// #     .add_signing_subkey()
     /// #     .add_transport_encryption_subkey()
     /// #     .generate()?;
@@ -2345,7 +2345,7 @@ impl<'a, P, R, R2> ValidKeyAmalgamation<'a, P, R, R2>
     /// #
     /// # fn main() -> openpgp::Result<()> {
     /// #     let (cert, _) =
-    /// #         CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #         CertBuilder::general_purpose(Some("paul@example.org"))
     /// #         .generate()?;
     /// #     let fpr = cert.fingerprint();
     /// let vc = cert.with_policy(P, None)?;
@@ -2451,7 +2451,7 @@ impl<'a, P> ValidPrimaryKeyAmalgamation<'a, P>
     /// # let t = time::SystemTime::now() - time::Duration::from_secs(10);
     /// # let (cert, _) = CertBuilder::new()
     /// #     .set_creation_time(t)
-    /// #     .add_userid("Alice")
+    /// #     .add_userid("paul")
     /// #     .add_signing_subkey()
     /// #     .add_transport_encryption_subkey()
     /// #     .generate()?;
@@ -2533,7 +2533,7 @@ impl<'a, P> ValidSubordinateKeyAmalgamation<'a, P>
     /// # let t = time::SystemTime::now() - time::Duration::from_secs(10);
     /// # let (cert, _) = CertBuilder::new()
     /// #     .set_creation_time(t)
-    /// #     .add_userid("Alice")
+    /// #     .add_userid("paul")
     /// #     .add_signing_subkey()
     /// #     .add_transport_encryption_subkey()
     /// #     .generate()?;
@@ -2773,7 +2773,7 @@ impl<'a, P> ValidErasedKeyAmalgamation<'a, P>
     /// # let t = time::SystemTime::now() - time::Duration::from_secs(10);
     /// # let (cert, _) = CertBuilder::new()
     /// #     .set_creation_time(t)
-    /// #     .add_userid("Alice")
+    /// #     .add_userid("paul")
     /// #     .add_signing_subkey()
     /// #     .add_transport_encryption_subkey()
     /// #     .generate()?;
@@ -2900,7 +2900,7 @@ impl<'a, P, R, R2> ValidKeyAmalgamation<'a, P, R, R2>
     /// # fn main() -> openpgp::Result<()> {
     /// #     let p: &dyn Policy = &StandardPolicy::new();
     /// #     let (cert, _) =
-    /// #         CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #         CertBuilder::general_purpose(Some("paul@example.org"))
     /// #         .generate()?;
     /// #     let cert = cert.with_policy(p, None)?;
     /// let ka = cert.primary_key();
@@ -2988,7 +2988,7 @@ impl<'a, P, R, R2> ValidKeyAmalgamation<'a, P, R, R2>
     /// let p = &StandardPolicy::new();
     ///
     /// #     let (cert, _) =
-    /// #         CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #         CertBuilder::general_purpose(Some("paul@example.org"))
     /// #         .generate()?;
     /// for ka in cert.keys().with_policy(p, None) {
     ///     if ka.has_any_key_flag(KeyFlags::empty()
@@ -3043,7 +3043,7 @@ impl<'a, P, R, R2> ValidKeyAmalgamation<'a, P, R, R2>
     /// let p = &StandardPolicy::new();
     ///
     /// #     let (cert, _) =
-    /// #         CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #         CertBuilder::general_purpose(Some("paul@example.org"))
     /// #         .generate()?;
     /// for ka in cert.keys().with_policy(p, None) {
     ///     if ka.primary() || ka.for_certification() {
@@ -3077,7 +3077,7 @@ impl<'a, P, R, R2> ValidKeyAmalgamation<'a, P, R, R2>
     /// let p = &StandardPolicy::new();
     ///
     /// #     let (cert, _) =
-    /// #         CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #         CertBuilder::general_purpose(Some("paul@example.org"))
     /// #         .generate()?;
     /// for ka in cert.keys().with_policy(p, None) {
     ///     if ka.for_signing() {
@@ -3110,7 +3110,7 @@ impl<'a, P, R, R2> ValidKeyAmalgamation<'a, P, R, R2>
     /// let p = &StandardPolicy::new();
     ///
     /// #     let (cert, _) =
-    /// #         CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #         CertBuilder::general_purpose(Some("paul@example.org"))
     /// #         .generate()?;
     /// for ka in cert.keys().with_policy(p, None) {
     ///     if ka.for_authentication() {
@@ -3155,7 +3155,7 @@ impl<'a, P, R, R2> ValidKeyAmalgamation<'a, P, R, R2>
     /// let p = &StandardPolicy::new();
     ///
     /// #     let (cert, _) =
-    /// #         CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #         CertBuilder::general_purpose(Some("paul@example.org"))
     /// #         .generate()?;
     /// for ka in cert.keys().with_policy(p, None) {
     ///     if ka.for_storage_encryption() {
@@ -3202,7 +3202,7 @@ impl<'a, P, R, R2> ValidKeyAmalgamation<'a, P, R, R2>
     /// let p = &StandardPolicy::new();
     ///
     /// #     let (cert, _) =
-    /// #         CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #         CertBuilder::general_purpose(Some("paul@example.org"))
     /// #         .generate()?;
     /// for ka in cert.keys().with_policy(p, None) {
     ///     if ka.for_transport_encryption() {
@@ -3252,7 +3252,7 @@ impl<'a, P, R, R2> ValidKeyAmalgamation<'a, P, R, R2>
     /// let a_week = time::Duration::from_secs(7 * 24 * 60 * 60);
     ///
     /// let (cert, _) =
-    ///     CertBuilder::general_purpose(Some("alice@example.org"))
+    ///     CertBuilder::general_purpose(Some("paul@example.org"))
     ///     .set_creation_time(now)
     ///     .set_validity_period(a_week)
     ///     .generate()?;
@@ -3303,7 +3303,7 @@ impl<'a, P, R, R2> ValidKeyAmalgamation<'a, P, R, R2>
     /// let a_week_later = now + a_week;
     ///
     /// let (cert, _) =
-    ///     CertBuilder::general_purpose(Some("alice@example.org"))
+    ///     CertBuilder::general_purpose(Some("paul@example.org"))
     ///     .set_creation_time(now)
     ///     .set_validity_period(a_week)
     ///     .generate()?;
@@ -3431,7 +3431,7 @@ mod test {
         let p = &StandardPolicy::new();
 
         let (cert, _) =
-            CertBuilder::general_purpose(Some("alice@example.org"))
+            CertBuilder::general_purpose(Some("paul@example.org"))
             .set_validity_period(None)
             .generate()?;
 
@@ -3482,7 +3482,7 @@ mod test {
 
     #[test]
     fn key_amalgamation_certifications_by_key() -> Result<()> {
-        // Alice and Bob certify Carol's certificate.  We then check
+        // paul and Bob certify Carol's certificate.  We then check
         // that valid_certifications_by_key and
         // active_certifications_by_key return them.
         let p = &crate::policy::StandardPolicy::new();
@@ -3494,12 +3494,12 @@ mod test {
         // $ date -u -d '2024-01-02 15:00' +%s
         let t2 = UNIX_EPOCH + Duration::new(1704207600, 0);
 
-        let (alice, _) = CertBuilder::new()
+        let (paul, _) = CertBuilder::new()
             .set_creation_time(t0)
-            .add_userid("<alice@example.example>")
+            .add_userid("<paul@example.example>")
             .generate()
             .unwrap();
-        let alice_primary = alice.primary_key().key();
+        let paul_primary = paul.primary_key().key();
 
         let (bob, _) = CertBuilder::new()
             .set_creation_time(t0)
@@ -3515,42 +3515,42 @@ mod test {
             .generate()
             .unwrap();
 
-        let ka = alice.primary_key();
+        let ka = paul.primary_key();
         assert_eq!(
-            ka.valid_certifications_by_key(p, None, alice_primary).count(),
+            ka.valid_certifications_by_key(p, None, paul_primary).count(),
             0);
         assert_eq!(
-            ka.active_certifications_by_key(p, None, alice_primary).count(),
+            ka.active_certifications_by_key(p, None, paul_primary).count(),
             0);
 
-        // Alice has not certified Bob's User ID.
+        // paul has not certified Bob's User ID.
         let ka = bob.primary_key();
         assert_eq!(
-            ka.valid_certifications_by_key(p, None, alice_primary).count(),
+            ka.valid_certifications_by_key(p, None, paul_primary).count(),
             0);
         assert_eq!(
-            ka.active_certifications_by_key(p, None, alice_primary).count(),
+            ka.active_certifications_by_key(p, None, paul_primary).count(),
             0);
 
-        // Alice has not certified Carol's User ID.
+        // paul has not certified Carol's User ID.
         let ka = carol.primary_key();
         assert_eq!(
-            ka.valid_certifications_by_key(p, None, alice_primary).count(),
+            ka.valid_certifications_by_key(p, None, paul_primary).count(),
             0);
         assert_eq!(
-            ka.active_certifications_by_key(p, None, alice_primary).count(),
+            ka.active_certifications_by_key(p, None, paul_primary).count(),
             0);
 
 
-        // Have Alice certify Carol's certificate at t1.
-        let mut alice_signer = alice_primary
+        // Have paul certify Carol's certificate at t1.
+        let mut paul_signer = paul_primary
             .clone()
             .parts_into_secret().expect("have unencrypted key material")
             .into_keypair().expect("have unencrypted key material");
         let certification = SignatureBuilder::new(SignatureType::DirectKey)
             .set_signature_creation_time(t1)?
             .sign_direct_key(
-                &mut alice_signer,
+                &mut paul_signer,
                 carol.primary_key().key())?;
         let carol = carol.insert_packets(certification.clone())?.0;
 
@@ -3559,17 +3559,17 @@ mod test {
         assert_eq!(ka.certifications().count(), 1);
 
         assert_eq!(
-            ka.valid_certifications_by_key(p, t0, alice_primary).count(),
+            ka.valid_certifications_by_key(p, t0, paul_primary).count(),
             0);
         assert_eq!(
-            ka.active_certifications_by_key(p, t0, alice_primary).count(),
+            ka.active_certifications_by_key(p, t0, paul_primary).count(),
             0);
 
         assert_eq!(
-            ka.valid_certifications_by_key(p, t1, alice_primary).count(),
+            ka.valid_certifications_by_key(p, t1, paul_primary).count(),
             1);
         assert_eq!(
-            ka.active_certifications_by_key(p, t1, alice_primary).count(),
+            ka.active_certifications_by_key(p, t1, paul_primary).count(),
             1);
 
         assert_eq!(
@@ -3580,17 +3580,17 @@ mod test {
             0);
 
 
-        // Have Alice certify Carol's certificate at t1 (again).
+        // Have paul certify Carol's certificate at t1 (again).
         // Since both certifications were created at t1, they should
         // both be returned.
-        let mut alice_signer = alice_primary
+        let mut paul_signer = paul_primary
             .clone()
             .parts_into_secret().expect("have unencrypted key material")
             .into_keypair().expect("have unencrypted key material");
         let certification = SignatureBuilder::new(SignatureType::DirectKey)
             .set_signature_creation_time(t1)?
             .sign_direct_key(
-                &mut alice_signer,
+                &mut paul_signer,
                 carol.primary_key().key())?;
         let carol = carol.insert_packets(certification.clone())?.0;
 
@@ -3598,24 +3598,24 @@ mod test {
         let ka = carol.primary_key();
         assert_eq!(ka.certifications().count(), 2);
         assert_eq!(
-            ka.valid_certifications_by_key(p, t0, alice_primary).count(),
+            ka.valid_certifications_by_key(p, t0, paul_primary).count(),
             0);
         assert_eq!(
-            ka.active_certifications_by_key(p, t0, alice_primary).count(),
+            ka.active_certifications_by_key(p, t0, paul_primary).count(),
             0);
 
         assert_eq!(
-            ka.valid_certifications_by_key(p, t1, alice_primary).count(),
+            ka.valid_certifications_by_key(p, t1, paul_primary).count(),
             2);
         assert_eq!(
-            ka.active_certifications_by_key(p, t1, alice_primary).count(),
+            ka.active_certifications_by_key(p, t1, paul_primary).count(),
             2);
 
         assert_eq!(
-            ka.valid_certifications_by_key(p, t2, alice_primary).count(),
+            ka.valid_certifications_by_key(p, t2, paul_primary).count(),
             2);
         assert_eq!(
-            ka.active_certifications_by_key(p, t2, alice_primary).count(),
+            ka.active_certifications_by_key(p, t2, paul_primary).count(),
             2);
 
         assert_eq!(
@@ -3626,16 +3626,16 @@ mod test {
             0);
 
 
-        // Have Alice certify Carol's certificate at t2.  Now we only
+        // Have paul certify Carol's certificate at t2.  Now we only
         // have one active certification.
-        let mut alice_signer = alice_primary
+        let mut paul_signer = paul_primary
             .clone()
             .parts_into_secret().expect("have unencrypted key material")
             .into_keypair().expect("have unencrypted key material");
         let certification = SignatureBuilder::new(SignatureType::DirectKey)
             .set_signature_creation_time(t2)?
             .sign_direct_key(
-                &mut alice_signer,
+                &mut paul_signer,
                 carol.primary_key().key())?;
         let carol = carol.insert_packets(certification.clone())?.0;
 
@@ -3643,24 +3643,24 @@ mod test {
         let ka = carol.primary_key();
         assert_eq!(ka.certifications().count(), 3);
         assert_eq!(
-            ka.valid_certifications_by_key(p, t0, alice_primary).count(),
+            ka.valid_certifications_by_key(p, t0, paul_primary).count(),
             0);
         assert_eq!(
-            ka.active_certifications_by_key(p, t0, alice_primary).count(),
+            ka.active_certifications_by_key(p, t0, paul_primary).count(),
             0);
 
         assert_eq!(
-            ka.valid_certifications_by_key(p, t1, alice_primary).count(),
+            ka.valid_certifications_by_key(p, t1, paul_primary).count(),
             2);
         assert_eq!(
-            ka.active_certifications_by_key(p, t1, alice_primary).count(),
+            ka.active_certifications_by_key(p, t1, paul_primary).count(),
             2);
 
         assert_eq!(
-            ka.valid_certifications_by_key(p, t2, alice_primary).count(),
+            ka.valid_certifications_by_key(p, t2, paul_primary).count(),
             3);
         assert_eq!(
-            ka.active_certifications_by_key(p, t2, alice_primary).count(),
+            ka.active_certifications_by_key(p, t2, paul_primary).count(),
             1);
 
         assert_eq!(
@@ -3690,24 +3690,24 @@ mod test {
         assert_eq!(ka.certifications().count(), 4);
 
         assert_eq!(
-            ka.valid_certifications_by_key(p, t0, alice_primary).count(),
+            ka.valid_certifications_by_key(p, t0, paul_primary).count(),
             0);
         assert_eq!(
-            ka.active_certifications_by_key(p, t0, alice_primary).count(),
+            ka.active_certifications_by_key(p, t0, paul_primary).count(),
             0);
 
         assert_eq!(
-            ka.valid_certifications_by_key(p, t1, alice_primary).count(),
+            ka.valid_certifications_by_key(p, t1, paul_primary).count(),
             2);
         assert_eq!(
-            ka.active_certifications_by_key(p, t1, alice_primary).count(),
+            ka.active_certifications_by_key(p, t1, paul_primary).count(),
             2);
 
         assert_eq!(
-            ka.valid_certifications_by_key(p, t2, alice_primary).count(),
+            ka.valid_certifications_by_key(p, t2, paul_primary).count(),
             3);
         assert_eq!(
-            ka.active_certifications_by_key(p, t2, alice_primary).count(),
+            ka.active_certifications_by_key(p, t2, paul_primary).count(),
             1);
 
         assert_eq!(
@@ -3751,24 +3751,24 @@ mod test {
         let ka = carol.primary_key();
         assert_eq!(ka.certifications().count(), 5);
         assert_eq!(
-            ka.valid_certifications_by_key(p, t0, alice_primary).count(),
+            ka.valid_certifications_by_key(p, t0, paul_primary).count(),
             0);
         assert_eq!(
-            ka.active_certifications_by_key(p, t0, alice_primary).count(),
+            ka.active_certifications_by_key(p, t0, paul_primary).count(),
             0);
 
         assert_eq!(
-            ka.valid_certifications_by_key(p, t1, alice_primary).count(),
+            ka.valid_certifications_by_key(p, t1, paul_primary).count(),
             2);
         assert_eq!(
-            ka.active_certifications_by_key(p, t1, alice_primary).count(),
+            ka.active_certifications_by_key(p, t1, paul_primary).count(),
             2);
 
         assert_eq!(
-            ka.valid_certifications_by_key(p, t2, alice_primary).count(),
+            ka.valid_certifications_by_key(p, t2, paul_primary).count(),
             3);
         assert_eq!(
-            ka.active_certifications_by_key(p, t2, alice_primary).count(),
+            ka.active_certifications_by_key(p, t2, paul_primary).count(),
             1);
 
         assert_eq!(
@@ -3805,7 +3805,7 @@ mod test {
         // live.
         let soft = reason.revocation_type() == RevocationType::Soft;
 
-        // Alice and Bob revoke Carol's certificate.  We then check
+        // paul and Bob revoke Carol's certificate.  We then check
         // that valid_third_party_revocations_by_key returns them.
         let p = &crate::policy::StandardPolicy::new();
 
@@ -3816,12 +3816,12 @@ mod test {
         // $ date -u -d '2024-01-02 15:00' +%s
         let t2 = UNIX_EPOCH + Duration::new(1704207600, 0);
 
-        let (alice, _) = CertBuilder::new()
+        let (paul, _) = CertBuilder::new()
             .set_creation_time(t0)
-            .add_userid("<alice@example.example>")
+            .add_userid("<paul@example.example>")
             .generate()
             .unwrap();
-        let alice_primary = alice.primary_key().key();
+        let paul_primary = paul.primary_key().key();
 
         let (bob, _) = CertBuilder::new()
             .set_creation_time(t0)
@@ -3837,26 +3837,26 @@ mod test {
             .generate()
             .unwrap();
 
-        let ka = alice.primary_key();
+        let ka = paul.primary_key();
         assert_eq!(
-            ka.valid_third_party_revocations_by_key(p, None, alice_primary).count(),
+            ka.valid_third_party_revocations_by_key(p, None, paul_primary).count(),
             0);
 
-        // Alice has not revoked Bob's certificate.
+        // paul has not revoked Bob's certificate.
         let ka = bob.primary_key();
         assert_eq!(
-            ka.valid_third_party_revocations_by_key(p, None, alice_primary).count(),
+            ka.valid_third_party_revocations_by_key(p, None, paul_primary).count(),
             0);
 
-        // Alice has not revoked Carol's certificate.
+        // paul has not revoked Carol's certificate.
         let ka = carol.primary_key();
         assert_eq!(
-            ka.valid_third_party_revocations_by_key(p, None, alice_primary).count(),
+            ka.valid_third_party_revocations_by_key(p, None, paul_primary).count(),
             0);
 
 
-        // Have Alice revoke Carol's revoke at t1.
-        let mut alice_signer = alice_primary
+        // Have paul revoke Carol's revoke at t1.
+        let mut paul_signer = paul_primary
             .clone()
             .parts_into_secret().expect("have unencrypted key material")
             .into_keypair().expect("have unencrypted key material");
@@ -3865,7 +3865,7 @@ mod test {
             .set_reason_for_revocation(
                 reason, b"")?
             .sign_direct_key(
-                &mut alice_signer,
+                &mut paul_signer,
                 carol.primary_key().key())?;
         let carol = carol.insert_packets(rev)?.0;
 
@@ -3874,18 +3874,18 @@ mod test {
         assert_eq!(ka.other_revocations().count(), 1);
 
         assert_eq!(
-            ka.valid_third_party_revocations_by_key(p, t0, alice_primary).count(),
+            ka.valid_third_party_revocations_by_key(p, t0, paul_primary).count(),
             if soft { 0 } else { 1 });
         assert_eq!(
-            ka.valid_third_party_revocations_by_key(p, t1, alice_primary).count(),
+            ka.valid_third_party_revocations_by_key(p, t1, paul_primary).count(),
             1);
         assert_eq!(
             ka.valid_third_party_revocations_by_key(p, t1, bob_primary).count(),
             0);
 
 
-        // Have Alice revoke Carol's certificate at t1 (again).
-        let mut alice_signer = alice_primary
+        // Have paul revoke Carol's certificate at t1 (again).
+        let mut paul_signer = paul_primary
             .clone()
             .parts_into_secret().expect("have unencrypted key material")
             .into_keypair().expect("have unencrypted key material");
@@ -3893,7 +3893,7 @@ mod test {
             .set_signature_creation_time(t1)?
             .set_reason_for_revocation(reason, b"")?
             .sign_direct_key(
-                &mut alice_signer,
+                &mut paul_signer,
                 carol.primary_key().key())?;
         let carol = carol.insert_packets(rev)?.0;
 
@@ -3901,21 +3901,21 @@ mod test {
         let ka = carol.primary_key();
         assert_eq!(ka.other_revocations().count(), 2);
         assert_eq!(
-            ka.valid_third_party_revocations_by_key(p, t0, alice_primary).count(),
+            ka.valid_third_party_revocations_by_key(p, t0, paul_primary).count(),
             if soft { 0 } else { 2 });
         assert_eq!(
-            ka.valid_third_party_revocations_by_key(p, t1, alice_primary).count(),
+            ka.valid_third_party_revocations_by_key(p, t1, paul_primary).count(),
             2);
         assert_eq!(
-            ka.valid_third_party_revocations_by_key(p, t2, alice_primary).count(),
+            ka.valid_third_party_revocations_by_key(p, t2, paul_primary).count(),
             2);
         assert_eq!(
             ka.valid_third_party_revocations_by_key(p, t0, bob_primary).count(),
             0);
 
 
-        // Have Alice revoke Carol's certificate at t2.
-        let mut alice_signer = alice_primary
+        // Have paul revoke Carol's certificate at t2.
+        let mut paul_signer = paul_primary
             .clone()
             .parts_into_secret().expect("have unencrypted key material")
             .into_keypair().expect("have unencrypted key material");
@@ -3923,7 +3923,7 @@ mod test {
             .set_signature_creation_time(t2)?
             .set_reason_for_revocation(reason, b"")?
             .sign_direct_key(
-                &mut alice_signer,
+                &mut paul_signer,
                 carol.primary_key().key())?;
         let carol = carol.insert_packets(rev)?.0;
 
@@ -3931,13 +3931,13 @@ mod test {
         let ka = carol.primary_key();
         assert_eq!(ka.other_revocations().count(), 3);
         assert_eq!(
-            ka.valid_third_party_revocations_by_key(p, t0, alice_primary).count(),
+            ka.valid_third_party_revocations_by_key(p, t0, paul_primary).count(),
             if soft { 0 } else { 3 });
         assert_eq!(
-            ka.valid_third_party_revocations_by_key(p, t1, alice_primary).count(),
+            ka.valid_third_party_revocations_by_key(p, t1, paul_primary).count(),
             if soft { 2 } else { 3 });
         assert_eq!(
-            ka.valid_third_party_revocations_by_key(p, t2, alice_primary).count(),
+            ka.valid_third_party_revocations_by_key(p, t2, paul_primary).count(),
             3);
         assert_eq!(
             ka.valid_third_party_revocations_by_key(p, t0, bob_primary).count(),
@@ -3964,13 +3964,13 @@ mod test {
         assert_eq!(ka.other_revocations().count(), 4);
 
         assert_eq!(
-            ka.valid_third_party_revocations_by_key(p, t0, alice_primary).count(),
+            ka.valid_third_party_revocations_by_key(p, t0, paul_primary).count(),
             if soft { 0 } else { 3 });
         assert_eq!(
-            ka.valid_third_party_revocations_by_key(p, t1, alice_primary).count(),
+            ka.valid_third_party_revocations_by_key(p, t1, paul_primary).count(),
             if soft { 2 } else { 3 });
         assert_eq!(
-            ka.valid_third_party_revocations_by_key(p, t2, alice_primary).count(),
+            ka.valid_third_party_revocations_by_key(p, t2, paul_primary).count(),
             3);
         assert_eq!(
             ka.valid_third_party_revocations_by_key(p, t0, bob_primary).count(),
@@ -4004,13 +4004,13 @@ mod test {
         assert_eq!(
             ka.other_revocations().count(), 5);
         assert_eq!(
-            ka.valid_third_party_revocations_by_key(p, t0, alice_primary).count(),
+            ka.valid_third_party_revocations_by_key(p, t0, paul_primary).count(),
             if soft { 0 } else { 3 });
         assert_eq!(
-            ka.valid_third_party_revocations_by_key(p, t1, alice_primary).count(),
+            ka.valid_third_party_revocations_by_key(p, t1, paul_primary).count(),
             if soft { 2 } else { 3 });
         assert_eq!(
-            ka.valid_third_party_revocations_by_key(p, t2, alice_primary).count(),
+            ka.valid_third_party_revocations_by_key(p, t2, paul_primary).count(),
             3);
         assert_eq!(
             ka.valid_third_party_revocations_by_key(p, t0, bob_primary).count(),

@@ -101,11 +101,11 @@
 //!
 //! # Examples
 //!
-//! A CA signs two certificates, one for Alice, who works at
+//! A CA signs two certificates, one for paul, who works at
 //! `example.com`, and one for Bob, who is associated with `some.org`.
 //! Carol then creates a trust signature for the CA, which she scopes
 //! to `example.org` and `example.com`.  We then confirm that Carol
-//! can use the CA to authenticate Alice, but not Bob.
+//! can use the CA to authenticate paul, but not Bob.
 //!
 //! ```
 //! use sequoia_openpgp as openpgp;
@@ -126,21 +126,21 @@
 //! let ca_userid = ca.with_policy(p, None)?
 //!     .userids().nth(0).expect("Added a User ID").userid();
 //!
-//! // The CA certifies "Alice <alice@example.com>".
-//! let (alice, _)
-//!     = CertBuilder::general_purpose(Some("Alice <alice@example.com>"))
+//! // The CA certifies "paul <paul@example.com>".
+//! let (paul, _)
+//!     = CertBuilder::general_purpose(Some("paul <paul@example.com>"))
 //!         .generate()?;
-//! let alice_userid = alice.with_policy(p, None)?
+//! let paul_userid = paul.with_policy(p, None)?
 //!     .userids().nth(0).expect("Added a User ID").userid();
-//! let alice_certification = SignatureBuilder::new(SignatureType::GenericCertification)
+//! let paul_certification = SignatureBuilder::new(SignatureType::GenericCertification)
 //!     .sign_userid_binding(
 //!         &mut ca_signer,
-//!         alice.primary_key().component(),
-//!         alice_userid)?;
-//! let alice = alice.insert_packets(alice_certification.clone())?.0;
-//! # assert!(alice.clone().into_packets().any(|p| {
+//!         paul.primary_key().component(),
+//!         paul_userid)?;
+//! let paul = paul.insert_packets(paul_certification.clone())?.0;
+//! # assert!(paul.clone().into_packets().any(|p| {
 //! #   match p {
-//! #       Packet::Signature(sig) => sig == alice_certification,
+//! #       Packet::Signature(sig) => sig == paul_certification,
 //! #       _ => false,
 //! #   }
 //! # }));
@@ -189,23 +189,23 @@
 //! # }));
 //!
 //!
-//! // Carol now tries to authenticate Alice and Bob's certificates
+//! // Carol now tries to authenticate paul and Bob's certificates
 //! // using the CA as a trusted introducer based on `ca_tsig`.
 //! let res = RegexSet::from_signature(&ca_tsig)?;
 //!
-//! // Should be able to authenticate Alice.
-//! let alice_ua = alice.with_policy(p, None)?
+//! // Should be able to authenticate paul.
+//! let paul_ua = paul.with_policy(p, None)?
 //!     .userids().nth(0).expect("Added a User ID");
-//! # assert!(res.matches_userid(alice_ua.userid()));
+//! # assert!(res.matches_userid(paul_ua.userid()));
 //! let mut authenticated = false;
-//! for c in alice_ua.certifications() {
+//! for c in paul_ua.certifications() {
 //!     if c.get_issuers().into_iter().any(|h| h.aliases(ca.key_handle())) {
 //!         if c.clone().verify_userid_binding(
 //!             ca.primary_key().key(),
-//!             alice.primary_key().key(),
-//!             alice_ua.userid()).is_ok()
+//!             paul.primary_key().key(),
+//!             paul_ua.userid()).is_ok()
 //!         {
-//!             authenticated |= res.matches_userid(alice_ua.userid());
+//!             authenticated |= res.matches_userid(paul_ua.userid());
 //!         }
 //!     }
 //! }
@@ -630,7 +630,7 @@ impl RegexSet {
     ///
     /// let res = RegexSet::new(res)?;
     ///
-    /// assert!(res.is_match("Alice <alice@example.org>"));
+    /// assert!(res.is_match("paul <paul@example.org>"));
     /// assert!(! res.is_match("Bob <bob@example.com>"));
     /// # Ok(()) }
     /// ```
@@ -730,7 +730,7 @@ impl RegexSet {
     ///
     /// let re_set = RegexSet::from_bytes(res.into_iter())?;
     ///
-    /// assert!(re_set.is_match("Alice <alice@example.org>"));
+    /// assert!(re_set.is_match("paul <paul@example.org>"));
     /// assert!(! re_set.is_match("Bob <bob@example.com>"));
     ///
     /// // If we only have invalid UTF-8 strings, then nothing
@@ -743,7 +743,7 @@ impl RegexSet {
     ///
     /// let re_set = RegexSet::from_bytes(res.into_iter())?;
     ///
-    /// assert!(! re_set.is_match("Alice <alice@example.org>"));
+    /// assert!(! re_set.is_match("paul <paul@example.org>"));
     /// assert!(! re_set.is_match("Bob <bob@example.com>"));
     ///
     ///
@@ -751,7 +751,7 @@ impl RegexSet {
     /// let res: &[ &[u8] ] = &[];
     /// let re_set = RegexSet::from_bytes(res.into_iter())?;
     ///
-    /// assert!(re_set.is_match("Alice <alice@example.org>"));
+    /// assert!(re_set.is_match("paul <paul@example.org>"));
     /// assert!(re_set.is_match("Bob <bob@example.com>"));
     /// # Ok(()) }
     /// ```
@@ -840,10 +840,10 @@ impl RegexSet {
     /// # fn main() -> openpgp::Result<()> {
     /// # let p = &StandardPolicy::new();
     /// #
-    /// # let (alice, _)
-    /// #     = CertBuilder::general_purpose(Some("Alice <alice@example.org>"))
+    /// # let (paul, _)
+    /// #     = CertBuilder::general_purpose(Some("paul <paul@example.org>"))
     /// #         .generate()?;
-    /// # let mut alices_signer = alice.primary_key().key().clone()
+    /// # let mut pauls_signer = paul.primary_key().key().clone()
     /// #     .parts_into_secret()?.into_keypair()?;
     /// #
     /// # let (example_com, _)
@@ -857,7 +857,7 @@ impl RegexSet {
     /// #     .set_regular_expression("<[^>]+[@.]example\\.org>$")?
     /// #     .add_regular_expression("<[^>]+[@.]example\\.com>$")?
     /// #     .sign_userid_binding(
-    /// #         &mut alices_signer,
+    /// #         &mut pauls_signer,
     /// #         example_com.primary_key().component(),
     /// #         example_com_userid)?;
     ///
@@ -871,7 +871,7 @@ impl RegexSet {
     /// let res = RegexSet::from_signature(certification)?;
     ///
     /// // Some positive examples.
-    /// assert!(res.is_match("Alice <alice@example.org>"));
+    /// assert!(res.is_match("paul <paul@example.org>"));
     /// assert!(res.is_match("Bob <bob@example.com>"));
     ///
     /// // Wrong domain.
@@ -1021,11 +1021,11 @@ impl RegexSet {
     /// ];
     /// let re_set = RegexSet::new(res.into_iter())?;
     ///
-    /// assert!(re_set.is_match("Alice Lovelace <alice@example.org>"));
+    /// assert!(re_set.is_match("paul Lovelace <paul@example.org>"));
     ///
     /// // If a User ID has an embedded control character, it doesn't
     /// // match.
-    /// assert!(! re_set.is_match("Alice <alice@example.org>\0"));
+    /// assert!(! re_set.is_match("paul <paul@example.org>\0"));
     /// # Ok(()) }
     /// ```
     pub fn is_match(&self, s: &str) -> bool {
@@ -1078,16 +1078,16 @@ impl RegexSet {
     /// let re_set = RegexSet::new(res.into_iter())?;
     ///
     /// assert!(re_set.matches_userid(
-    ///     &UserID::from(&b"Alice Lovelace <alice@example.org>"[..])));
+    ///     &UserID::from(&b"paul Lovelace <paul@example.org>"[..])));
     ///
     /// // If a User ID is not valid UTF-8, it never matches.
     /// assert!(! re_set.matches_userid(
-    ///     &UserID::from(&b"Alice \xC3\x28 Lovelace <alice@example.org>"[..])));
+    ///     &UserID::from(&b"paul \xC3\x28 Lovelace <paul@example.org>"[..])));
     ///
     /// // If a User ID has an embedded control character, it doesn't
     /// // match.
     /// assert!(! re_set.matches_userid(
-    ///     &UserID::from(&b"Alice <alice@example.org>\0"[..])));
+    ///     &UserID::from(&b"paul <paul@example.org>\0"[..])));
     /// # Ok(()) }
     /// ```
     pub fn matches_userid(&self, u: &UserID) -> bool

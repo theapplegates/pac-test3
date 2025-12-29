@@ -425,15 +425,15 @@ impl CertValidator {
 /// use openpgp::cert::prelude::*;
 ///
 /// # fn main() -> Result<()> {
-/// # let (alice, _) =
-/// #       CertBuilder::general_purpose(Some("alice@example.org"))
+/// # let (paul, _) =
+/// #       CertBuilder::general_purpose(Some("paul@example.org"))
 /// #       .generate()?;
 /// # let (bob, _) =
 /// #       CertBuilder::general_purpose(Some("bob@example.org"))
 /// #       .generate()?;
 /// #
 /// # let mut keyring = Vec::new();
-/// # alice.serialize(&mut keyring)?;
+/// # paul.serialize(&mut keyring)?;
 /// # bob.serialize(&mut keyring)?;
 /// #
 /// # let mut count = 0;
@@ -473,22 +473,22 @@ impl CertValidator {
 /// let mut lit = Literal::new(DataFormat::Unicode);
 /// lit.set_body(b"test".to_vec());
 ///
-/// let (alice, _) =
-///       CertBuilder::general_purpose(Some("alice@example.org"))
+/// let (paul, _) =
+///       CertBuilder::general_purpose(Some("paul@example.org"))
 ///       .generate()?;
 /// let (bob, _) =
 ///       CertBuilder::general_purpose(Some("bob@example.org"))
 ///       .generate()?;
 ///
 /// let mut packets : Vec<Packet> = Vec::new();
-/// packets.extend(alice.clone().into_packets());
+/// packets.extend(paul.clone().into_packets());
 /// packets.push(lit.clone().into());
 /// packets.push(lit.clone().into());
 /// packets.extend(bob.clone().into_packets());
 ///
 /// let r : Vec<Result<Cert>> = CertParser::from(packets).collect();
 /// assert_eq!(r.len(), 4);
-/// assert_eq!(r[0].as_ref().unwrap().fingerprint(), alice.fingerprint());
+/// assert_eq!(r[0].as_ref().unwrap().fingerprint(), paul.fingerprint());
 /// assert!(r[1].is_err());
 /// assert!(r[2].is_err());
 /// assert_eq!(r[3].as_ref().unwrap().fingerprint(), bob.fingerprint());
@@ -627,15 +627,15 @@ impl<'a> CertParser<'a> {
     /// use openpgp::packet::prelude::*;
     ///
     /// # fn main() -> Result<()> {
-    /// # let (alice, _) =
-    /// #       CertBuilder::general_purpose(Some("alice@example.org"))
+    /// # let (paul, _) =
+    /// #       CertBuilder::general_purpose(Some("paul@example.org"))
     /// #       .generate()?;
     /// # let (bob, _) =
     /// #       CertBuilder::general_purpose(Some("bob@example.org"))
     /// #       .generate()?;
     /// #
     /// # let mut keyring = Vec::new();
-    /// # alice.serialize(&mut keyring)?;
+    /// # paul.serialize(&mut keyring)?;
     /// # bob.serialize(&mut keyring)?;
     /// #
     /// # let mut count = 0;
@@ -1328,7 +1328,7 @@ mod test {
         }
 
         let (cert, _) =
-            CertBuilder::general_purpose(Some("alice@example.org"))
+            CertBuilder::general_purpose(Some("paul@example.org"))
             .generate()?;
         let cert = cert.into_packets().collect::<Vec<_>>();
 

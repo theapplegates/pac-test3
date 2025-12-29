@@ -1413,17 +1413,17 @@ mod tests {
     #[test]
     fn hash_algo_security() {
         // Acceptable.
-        assert_eq!(UserID::from("Alice Lovelace <alice@lovelace.org>")
+        assert_eq!(UserID::from("paul Lovelace <paul@lovelace.org>")
                    .hash_algo_security(),
                    HashAlgoSecurity::SecondPreImageResistance);
 
         // Embedded NUL.
-        assert_eq!(UserID::from(&b"Alice Lovelace <alice@lovelace.org>\0"[..])
+        assert_eq!(UserID::from(&b"paul Lovelace <paul@lovelace.org>\0"[..])
                    .hash_algo_security(),
                    HashAlgoSecurity::CollisionResistance);
         assert_eq!(
             UserID::from(
-                &b"Alice Lovelace <alice@lovelace.org>\0Hidden!"[..])
+                &b"paul Lovelace <paul@lovelace.org>\0Hidden!"[..])
                 .hash_algo_security(),
             HashAlgoSecurity::CollisionResistance);
 

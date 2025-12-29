@@ -1,0 +1,41 @@
+created
+gpg: revocation certificate stored as '/home/paul/.gnupg/openpgp-revocs.d/D1358E8EE896FE9603480EA06FEBD016425A85D9B532AC23C74556E659AEC79F.rev'
+public and secret key created and signed.
+
+pub   ed448 2025-12-07 [SC]
+      D1358E8EE896FE9603480EA06FEBD016425A85D9B532AC23C74556E659AEC79F
+uid                      Paul Applegate <me@paulapplegate.com>
+sub   ky1024_cv448 2025-12-07 [E]
+      092D7B9E207E69E54BF1658425DC616692C26DA2AA3E9F71059C90E9F51DD1E4
+
+paul@Fedora:~/Documents$ cat /home/paul/.gnupg/openpgp-revocs.d/D1358E8EE896FE9603480EA06FEBD016425A85D9B532AC23C74556E659AEC79F.rev
+This is a revocation certificate for the OpenPGP key:
+
+pub   ed448 2025-12-07 [S]
+      D1358E8EE896FE9603480EA06FEBD016425A85D9B532AC23C74556E659AEC79F
+uid          Paul Applegate <me@paulapplegate.com>
+
+A revocation certificate is a kind of "kill switch" to publicly
+declare that a key shall not anymore be used.  It is not possible
+to retract such a revocation certificate once it has been published.
+
+Use it to revoke this key in case of a compromise or loss of
+the secret key.  However, if the secret key is still accessible,
+it is better to generate a new revocation certificate and give
+a reason for the revocation.  For details see the description of
+of the gpg command "--generate-revocation" in the GnuPG manual.
+
+To avoid an accidental use of this file, a colon has been inserted
+before the 5 dashes below.  Remove this colon with a text editor
+before importing and publishing this revocation certificate.
+
+:-----BEGIN PGP PUBLIC KEY BLOCK-----
+Comment: This is a revocation certificate
+
+iKwFIBYKACwiIQXRNY6O6Jb+lgNIDqBv69AWQlqF2bUyrCPHRVbmWa7HnwUCaTUC
+JwIdAAAAYmQByLdRuEQ/UOhLaGCh97xdPxSK0B7tsoWPV9KOux2eib0FHl6sxOT1
+2ImV3mMCZ4Jw4grxCc7HR4UHgAHIryVwRjgudWOkOyD2EK3jjfKp7L651byDiJsY
+XEI6fRTF2KgoZVR+Iu3UAm9fFzGN4IsAiGtGIjIA
+=COhN
+-----END PGP PUBLIC KEY BLOCK-----
+paul@Fedora:~/Documents$ 

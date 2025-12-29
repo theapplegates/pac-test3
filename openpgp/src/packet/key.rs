@@ -520,7 +520,7 @@ impl<R: key::KeyRole> Key<key::SecretParts, R> {
     /// # fn main() -> Result<()> {
     /// // Generate a certificate.
     /// let (cert, _) =
-    ///     CertBuilder::general_purpose(Some("Alice Lovelace <alice@example.org>"))
+    ///     CertBuilder::general_purpose(Some("paul Lovelace <paul@example.org>"))
     ///         .generate()?;
     ///
     /// // Use the secret key material to sign a revocation certificate.
@@ -570,7 +570,7 @@ impl<R: key::KeyRole> Key<key::SecretParts, R> {
     /// // Generate a certificate whose secret key material is
     /// // password protected.
     /// let (cert, _) =
-    ///     CertBuilder::general_purpose(Some("Alice Lovelace <alice@example.org>"))
+    ///     CertBuilder::general_purpose(Some("paul Lovelace <paul@example.org>"))
     ///         .set_password(Some("1234".into()))
     ///         .generate()?;
     ///
@@ -632,7 +632,7 @@ impl<R: key::KeyRole> Key<key::SecretParts, R> {
     /// // Generate a certificate whose secret key material is
     /// // not password protected.
     /// let (cert, _) =
-    ///     CertBuilder::general_purpose(Some("Alice Lovelace <alice@example.org>"))
+    ///     CertBuilder::general_purpose(Some("paul Lovelace <paul@example.org>"))
     ///         .generate()?;
     ///
     /// // Encrypt every key.
@@ -1132,7 +1132,7 @@ pub trait KeyParts: fmt::Debug + seal::Sealed {
     /// }
     /// # fn main() -> openpgp::Result<()> {
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// # f(&cert, cert.primary_key().key().clone().role_into_unspecified())?;
     /// # Ok(())
@@ -1318,7 +1318,7 @@ pub trait KeyRole: fmt::Debug + seal::Sealed {
     /// }
     /// # fn main() -> openpgp::Result<()> {
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// # f(&cert, cert.primary_key().key().clone().parts_into_unspecified())?;
     /// # Ok(())

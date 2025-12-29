@@ -6,7 +6,7 @@ use openpgp::cert::{CertBuilder, CipherSuite};
 fn generate_cert(cipher: CipherSuite) {
     // Parse the cert, ignore any errors
     let _ = CertBuilder::general_purpose(
-        Some("Alice Lovelace <alice@example.org>"))
+        Some("paul Lovelace <paul@example.org>"))
         .set_cipher_suite(cipher)
         .generate()
         .unwrap();

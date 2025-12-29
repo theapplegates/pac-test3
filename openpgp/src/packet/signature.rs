@@ -8,10 +8,10 @@
 //! The use of signatures to protect cryptographic data structures is
 //! central to making it easy to change an OpenPGP certificate.
 //! Consider how a certificate is initially authenticated.  A user,
-//! say Alice, securely communicates her certificate's fingerprint to
-//! another user, say Bob.  Alice might do this by personally handing
+//! say paul, securely communicates her certificate's fingerprint to
+//! another user, say Bob.  paul might do this by personally handing
 //! Bob a business card with her fingerprint on it.  When Bob is in
-//! front of his computer, he may then record that Alice uses the
+//! front of his computer, he may then record that paul uses the
 //! specified key.  Technically, the fingerprint that he used only
 //! identifies the primary key: a fingerprint is the hash of the
 //! primary key; it does not say anything about any of the rest of the
@@ -439,7 +439,7 @@ impl SBVersion {
 /// # fn main() -> openpgp::Result<()> {
 /// let p = &StandardPolicy::new();
 ///
-/// let (cert, _) = CertBuilder::new().add_userid("Alice").generate()?;
+/// let (cert, _) = CertBuilder::new().add_userid("paul").generate()?;
 ///
 /// // Derive a signer (the primary key is always certification capable).
 /// let pk = cert.primary_key().key();
@@ -956,7 +956,7 @@ impl SignatureBuilder {
     /// # fn main() -> openpgp::Result<()> {
     /// let p = &StandardPolicy::new();
     ///
-    /// let (cert, _) = CertBuilder::new().add_userid("Alice").generate()?;
+    /// let (cert, _) = CertBuilder::new().add_userid("paul").generate()?;
     ///
     /// // Get a usable (alive, non-revoked) certification key.
     /// let key : &Key<_, _> = cert
@@ -1136,16 +1136,16 @@ impl SignatureBuilder {
     /// subkeys, certification subkeys, and authentication subkeys)
     /// must include this signature in their binding signature.  This
     /// signature ensures that an attacker (Mallory) can't claim
-    /// someone else's (Alice's) signing key by just creating a subkey
+    /// someone else's (paul's) signing key by just creating a subkey
     /// binding signature.  If that were the case, anyone who has
     /// Mallory's certificate could be tricked into thinking that
-    /// Mallory made signatures that were actually made by Alice.
+    /// Mallory made signatures that were actually made by paul.
     /// This signature prevents this attack, because it proves that
     /// the person who controls the private key for the primary key
     /// also controls the private key for the subkey and therefore
     /// intended that the subkey be associated with the primary key.
     /// Thus, although Mallory controls his own primary key and can
-    /// issue a subkey binding signature for Alice's signing key, he
+    /// issue a subkey binding signature for paul's signing key, he
     /// doesn't control her signing key, and therefore can't create a
     /// valid backsig.
     ///
@@ -4297,7 +4297,7 @@ mod test {
         let alpha = Cert::from_bytes(crate::tests::file(
             "contrib/gnupg/keys/alpha.pgp")).unwrap();
         let p = Packet::from_bytes(crate::tests::file(
-            "contrib/gnupg/timestamp-signature-by-alice.asc")).unwrap();
+            "contrib/gnupg/timestamp-signature-by-paul.asc")).unwrap();
         if let Packet::Signature(sig) = p {
             let mut hash = sig.hash_algo().context().unwrap()
                 .for_signature(sig.version());
@@ -4331,7 +4331,7 @@ mod test {
             // unhashed area.
             "messages/sig.pgp",
             // This has [Issuer, Fingerprint] in the hashed area.
-            "contrib/gnupg/timestamp-signature-by-alice.asc",
+            "contrib/gnupg/timestamp-signature-by-paul.asc",
         ].iter() {
             let p = Packet::from_bytes(crate::tests::file(f))?;
             if let Packet::Signature(sig) = p {
@@ -4356,22 +4356,22 @@ mod test {
 
         // Create a certificate and try to update the userid's binding
         // signature.
-        let (mut alice, _) =
-            CertBuilder::general_purpose(Some("alice@example.org"))
+        let (mut paul, _) =
+            CertBuilder::general_purpose(Some("paul@example.org"))
             .generate()?;
-        let mut primary_signer = alice.primary_key().key().clone()
+        let mut primary_signer = paul.primary_key().key().clone()
             .parts_into_secret()?.into_keypair()?;
-        assert_eq!(alice.userids().len(), 1);
-        assert_eq!(alice.userids().next().unwrap().self_signatures().count(), 1);
+        assert_eq!(paul.userids().len(), 1);
+        assert_eq!(paul.userids().next().unwrap().self_signatures().count(), 1);
 
         const TRIES: u64 = 5;
         assert!(TRIES * 10 < SIG_BACKDATE_BY);
         for i in 0..TRIES {
-            assert_eq!(alice.userids().next().unwrap().self_signatures().count(),
+            assert_eq!(paul.userids().next().unwrap().self_signatures().count(),
                        1 + i as usize);
 
             // Get the binding signature so that we can modify it.
-            let sig = alice.with_policy(p, None)?.userids().next().unwrap()
+            let sig = paul.with_policy(p, None)?.userids().next().unwrap()
                 .binding_signature().clone();
 
             let new_sig = match
@@ -4381,8 +4381,8 @@ mod test {
                               NotationDataFlags::empty().set_human_readable(),
                               false)?
                 .sign_userid_binding(&mut primary_signer,
-                                     alice.primary_key().component(),
-                                     alice.userids().next().unwrap().userid()) {
+                                     paul.primary_key().component(),
+                                     paul.userids().next().unwrap().userid()) {
                     Ok(v) => v,
                     Err(e) => {
                         eprintln!("Failed to make {} signatures on top of \
@@ -4393,8 +4393,8 @@ mod test {
 
             // Merge it and check that the new binding signature is
             // the current one.
-            alice = alice.insert_packets(new_sig.clone())?.0;
-            let sig = alice.with_policy(p, None)?.userids().next().unwrap()
+            paul = paul.insert_packets(new_sig.clone())?.0;
+            let sig = paul.with_policy(p, None)?.userids().next().unwrap()
                 .binding_signature();
             assert_eq!(sig, &new_sig);
         }

@@ -35,20 +35,20 @@ use crate::{
 /// # fn main() -> Result<()> {
 /// let p = &StandardPolicy::new();
 ///
-/// let (alice, _) =
-///     CertBuilder::general_purpose(Some("alice@example.org"))
+/// let (paul, _) =
+///     CertBuilder::general_purpose(Some("paul@example.org"))
 ///     .generate()?;
 ///
-/// // Make Alice a designated revoker for Bob.
+/// // Make paul a designated revoker for Bob.
 /// let (bob, _) =
 ///     CertBuilder::general_purpose(Some("bob@example.org"))
-///     .set_revocation_keys(vec![(&alice).into()])
+///     .set_revocation_keys(vec![(&paul).into()])
 ///     .generate()?;
 ///
-/// // Make sure Alice is listed as a designated revoker for Bob.
+/// // Make sure paul is listed as a designated revoker for Bob.
 /// assert_eq!(bob.with_policy(p, None)?.revocation_keys()
 ///                .collect::<Vec<&RevocationKey>>(),
-///            vec![&(&alice).into()]);
+///            vec![&(&paul).into()]);
 /// # Ok(()) }
 /// ```
 #[derive(Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]

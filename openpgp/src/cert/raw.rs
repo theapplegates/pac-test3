@@ -1278,7 +1278,7 @@ mod test {
         tracer!(TRACE, "invalid_packets", 0);
 
         let (cert, _) =
-            CertBuilder::general_purpose(Some("alice@example.org"))
+            CertBuilder::general_purpose(Some("paul@example.org"))
             .generate()?;
         let cert = cert.into_packets().collect::<Vec<_>>();
 

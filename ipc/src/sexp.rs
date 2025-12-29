@@ -925,7 +925,7 @@ mod tests {
         // Try with data copied from GnuPG's private-keys-v1.d
         // directory.
         for test in &[
-            "alice.pgp"
+            "paul.pgp"
         ]
         {
             let base = "sexp/private-keys-v1.d";

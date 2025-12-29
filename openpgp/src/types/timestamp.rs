@@ -41,7 +41,7 @@ use crate::{
 ///
 /// # fn main() -> Result<()> {
 /// let (cert, _) =
-///     CertBuilder::general_purpose(Some("alice@example.org"))
+///     CertBuilder::general_purpose(Some("paul@example.org"))
 ///     .generate()?;
 ///
 /// let subkey = cert.keys().subkeys().next().unwrap();
@@ -185,14 +185,14 @@ impl Timestamp {
     /// // Let's fix a time.
     /// let now = Timestamp::from(1583436160);
     ///
-    /// let cert_creation_alice = now.checked_sub(Duration::weeks(2)?).unwrap();
+    /// let cert_creation_paul = now.checked_sub(Duration::weeks(2)?).unwrap();
     /// let cert_creation_bob = now.checked_sub(Duration::weeks(1)?).unwrap();
     ///
-    /// // Generate a Cert for Alice.
-    /// let (alice, _) = CertBuilder::new()
-    ///     .set_creation_time(cert_creation_alice)
+    /// // Generate a Cert for paul.
+    /// let (paul, _) = CertBuilder::new()
+    ///     .set_creation_time(cert_creation_paul)
     ///     .set_primary_key_flags(KeyFlags::empty().set_certification())
-    ///     .add_userid("alice@example.org")
+    ///     .add_userid("paul@example.org")
     ///     .generate()?;
     ///
     /// // Generate a Cert for Bob.
@@ -209,7 +209,7 @@ impl Timestamp {
     ///
     ///     // First, get the certification key.
     ///     let mut keypair =
-    ///         alice.keys().with_policy(policy, t).secret().for_certification()
+    ///         paul.keys().with_policy(policy, t).secret().for_certification()
     ///         .nth(0).ok_or_else(|| anyhow::anyhow!("no valid key at"))?
     ///         .key().clone().into_keypair()?;
     ///
@@ -219,7 +219,7 @@ impl Timestamp {
     ///         .filter(|ca| ca.userid().value() == b"bob@example.org")
     ///         .nth(0).ok_or_else(|| anyhow::anyhow!("no valid userid"))?;
     ///
-    ///     // Finally, Alice certifies the binding between
+    ///     // Finally, paul certifies the binding between
     ///     // `bob@example.org` and `bob` at `t`.
     ///     ca.userid().certify(&mut keypair, &bob,
     ///                         SignatureType::PositiveCertification, None, t)

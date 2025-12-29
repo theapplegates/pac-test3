@@ -1,0 +1,21 @@
+sq key generate --userid Paul --email me@paulapplegate.com \
+  --cipher-suite SLH-DSA-256s+ML-KEM-1024+X448 --profile rfc9580 --own-key
+  
+  
+  slhdsa256s
+  
+  ML-DSA-65+Ed25519
+  
+  --user-id
+  
+  mlkem1024-x448
+  
+  sq key generate --userid Paul --email me@paulapplegate.com \
+  --cipher-suite mldsa65-ed25519 --profile rfc9580 --own-key
+  
+  
+  sq key generate --userid Paul --email me@paulapplegate.com \
+  --cipher-suite slhdsa256s+mlkem1024-x448 --profile rfc9580 --own-key
+  
+  
+  slhdsa256s+mlkem1024-x448

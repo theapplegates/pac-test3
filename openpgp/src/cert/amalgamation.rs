@@ -246,7 +246,7 @@ pub mod key;
 /// }
 /// # fn main() -> openpgp::Result<()> {
 /// #     let (cert, _) =
-/// #         CertBuilder::general_purpose(Some("alice@example.org"))
+/// #         CertBuilder::general_purpose(Some("paul@example.org"))
 /// #         .generate()?;
 /// #     let ua = cert.userids().nth(0).expect("User IDs");
 /// #     f(ua);
@@ -344,7 +344,7 @@ pub trait ValidAmalgamation<'a, C: 'a>: seal::Sealed
     /// # fn main() -> openpgp::Result<()> {
     /// #     let p = &StandardPolicy::new();
     /// #     let (cert, _) =
-    /// #         CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #         CertBuilder::general_purpose(Some("paul@example.org"))
     /// #         .generate()?;
     /// #     let fpr = cert.fingerprint();
     /// #     let ua = cert.userids().nth(0).expect("User IDs");
@@ -373,7 +373,7 @@ pub trait ValidAmalgamation<'a, C: 'a>: seal::Sealed
     /// #     let p = &StandardPolicy::new();
     /// #     let t = UNIX_EPOCH + Duration::from_secs(1554542220);
     /// #     let (cert, _) =
-    /// #         CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #         CertBuilder::general_purpose(Some("paul@example.org"))
     /// #         .set_creation_time(t)
     /// #         .generate()?;
     /// #     let ua = cert.userids().nth(0).expect("User IDs");
@@ -401,7 +401,7 @@ pub trait ValidAmalgamation<'a, C: 'a>: seal::Sealed
     /// # fn main() -> openpgp::Result<()> {
     /// #     let p: &dyn Policy = &StandardPolicy::new();
     /// #     let (cert, _) =
-    /// #         CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #         CertBuilder::general_purpose(Some("paul@example.org"))
     /// #         .generate()?;
     /// #     let ua = cert.userids().nth(0).expect("User IDs");
     /// #     let ua = ua.with_policy(p, None)?;
@@ -428,7 +428,7 @@ pub trait ValidAmalgamation<'a, C: 'a>: seal::Sealed
     /// # fn main() -> openpgp::Result<()> {
     /// #     let p: &dyn Policy = &StandardPolicy::new();
     /// #     let (cert, _) =
-    /// #         CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #         CertBuilder::general_purpose(Some("paul@example.org"))
     /// #         .generate()?;
     /// #     let ua = cert.userids().nth(0).expect("User IDs");
     /// #     let ua = ua.with_policy(p, None)?;
@@ -460,7 +460,7 @@ pub trait ValidAmalgamation<'a, C: 'a>: seal::Sealed
     /// # fn main() -> openpgp::Result<()> {
     /// #     let p: &dyn Policy = &StandardPolicy::new();
     /// #     let (cert, _) =
-    /// #         CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #         CertBuilder::general_purpose(Some("paul@example.org"))
     /// #         .generate()?;
     /// #     let cert = cert.with_policy(p, None)?;
     /// #     let ua = cert.userids().nth(0).expect("User IDs");
@@ -502,7 +502,7 @@ pub trait ValidAmalgamation<'a, C: 'a>: seal::Sealed
     /// # fn main() -> openpgp::Result<()> {
     /// #     let p = &StandardPolicy::new();
     /// #     let (cert, _) =
-    /// #         CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #         CertBuilder::general_purpose(Some("paul@example.org"))
     /// #         .generate()?;
     /// #     let cert = cert.with_policy(p, None)?;
     /// #     let ua = cert.userids().nth(0).expect("User IDs");
@@ -547,27 +547,27 @@ pub trait ValidAmalgamation<'a, C: 'a>: seal::Sealed
     /// # fn main() -> Result<()> {
     /// let p = &StandardPolicy::new();
     ///
-    /// let (alice, _) =
-    ///     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// let (paul, _) =
+    ///     CertBuilder::general_purpose(Some("paul@example.org"))
     ///     .generate()?;
-    /// // Make Alice a designated revoker for Bob.
+    /// // Make paul a designated revoker for Bob.
     /// let (bob, _) =
     ///     CertBuilder::general_purpose(Some("bob@example.org"))
-    ///     .set_revocation_keys(vec![(&alice).into()])
+    ///     .set_revocation_keys(vec![(&paul).into()])
     ///     .generate()?;
     ///
-    /// // Make sure Alice is listed as a designated revoker for Bob's
+    /// // Make sure paul is listed as a designated revoker for Bob's
     /// // primary user id.
     /// assert_eq!(bob.with_policy(p, None)?.primary_userid()?
     ///            .revocation_keys().collect::<Vec<&RevocationKey>>(),
-    ///            vec![&(&alice).into()]);
+    ///            vec![&(&paul).into()]);
     ///
-    /// // Make sure Alice is listed as a designated revoker for Bob's
+    /// // Make sure paul is listed as a designated revoker for Bob's
     /// // encryption subkey.
     /// assert_eq!(bob.with_policy(p, None)?
     ///            .keys().for_transport_encryption().next().unwrap()
     ///            .revocation_keys().collect::<Vec<&RevocationKey>>(),
-    ///            vec![&(&alice).into()]);
+    ///            vec![&(&paul).into()]);
     /// # Ok(()) }
     /// ```
     fn revocation_keys(&self)
@@ -628,7 +628,7 @@ pub trait ValidBindingSignature<'a, C: 'a>: ValidAmalgamation<'a, C> + seal::Sea
 /// # fn main() -> openpgp::Result<()> {
 /// #     let p = &StandardPolicy::new();
 /// #     let (cert, _) =
-/// #         CertBuilder::general_purpose(Some("alice@example.org"))
+/// #         CertBuilder::general_purpose(Some("paul@example.org"))
 /// #         .generate()?;
 /// #     let fpr = cert.fingerprint();
 /// // Iterate over all User IDs.
@@ -705,7 +705,7 @@ impl<'a, C> ComponentAmalgamation<'a, C> {
     /// #
     /// # fn main() -> openpgp::Result<()> {
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for u in cert.userids() {
     ///     // It's not only an identical `Cert`, it's the same one.
@@ -736,7 +736,7 @@ impl<'a, C> ComponentAmalgamation<'a, C> {
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// // Display information about each User ID's current active
     /// // binding signature (the `time` parameter is `None`), if any.
@@ -764,7 +764,7 @@ impl<'a, C> ComponentAmalgamation<'a, C> {
     /// use openpgp::packet::prelude::*;
     ///
     /// # let (cert, _) = CertBuilder::new()
-    /// #     .add_userid("Alice")
+    /// #     .add_userid("paul")
     /// #     .add_signing_subkey()
     /// #     .add_transport_encryption_subkey()
     /// #     .generate()?;
@@ -787,7 +787,7 @@ impl<'a, C> ComponentAmalgamation<'a, C> {
     /// #
     /// # fn main() -> openpgp::Result<()> {
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// // Display some information about any unknown components.
     /// for u in cert.unknowns() {
@@ -815,7 +815,7 @@ impl<'a, C> ComponentAmalgamation<'a, C> {
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for (i, ka) in cert.keys().enumerate() {
     ///     eprintln!("Key #{} ({}) has {:?} self signatures",
@@ -844,7 +844,7 @@ impl<'a, C> ComponentAmalgamation<'a, C> {
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for ua in cert.userids() {
     ///     eprintln!("User ID {} has {:?} unverified, third-party certifications",
@@ -903,7 +903,7 @@ impl<'a, C> ComponentAmalgamation<'a, C> {
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for u in cert.userids() {
     ///     eprintln!("User ID {} has {:?} revocation certificates.",
@@ -933,7 +933,7 @@ impl<'a, C> ComponentAmalgamation<'a, C> {
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for u in cert.userids() {
     ///     eprintln!("User ID {} has {:?} unverified, third-party revocation certificates.",
@@ -972,7 +972,7 @@ impl<'a, C> ComponentAmalgamation<'a, C> {
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for (i, uid) in cert.userids().enumerate() {
     ///     eprintln!("UserID #{} ({:?}) has {:?} certification approval key signatures",
@@ -1008,7 +1008,7 @@ impl<'a, C> ComponentAmalgamation<'a, C> {
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for (i, ka) in cert.keys().enumerate() {
     ///     eprintln!("Key #{} ({}) has {:?} signatures",
@@ -1222,7 +1222,7 @@ impl<'a> UserIDAmalgamation<'a> {
     /// #
     /// # fn main() -> openpgp::Result<()> {
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// // Display some information about the User IDs.
     /// for ua in cert.userids() {
@@ -1262,7 +1262,7 @@ impl<'a> UserIDAmalgamation<'a> {
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// // Display the User IDs' revocation status.
     /// for ua in cert.userids() {
@@ -1298,7 +1298,7 @@ impl<'a> UserIDAmalgamation<'a> {
     ///
     /// # Examples
     ///
-    /// Alice has certified that a certificate belongs to Bob on two
+    /// paul has certified that a certificate belongs to Bob on two
     /// occasions.  Whereas
     /// [`UserIDAmalgamation::valid_certifications_by_key`] returns
     /// both certifications,
@@ -1320,13 +1320,13 @@ impl<'a> UserIDAmalgamation<'a> {
     /// #     - std::time::Duration::new(100, 0);
     /// # let t0 = epoch;
     /// #
-    /// # let (alice, _) = CertBuilder::new()
+    /// # let (paul, _) = CertBuilder::new()
     /// #     .set_creation_time(t0)
-    /// #     .add_userid("<alice@example.org>")
+    /// #     .add_userid("<paul@example.org>")
     /// #     .generate()
     /// #     .unwrap();
-    /// let alice: Cert = // ...
-    /// # alice;
+    /// let paul: Cert = // ...
+    /// # paul;
     /// #
     /// # let bob_userid = "<bob@example.org>";
     /// # let (bob, _) = CertBuilder::new()
@@ -1337,15 +1337,15 @@ impl<'a> UserIDAmalgamation<'a> {
     /// let bob: Cert = // ...
     /// # bob;
     ///
-    /// # // Alice has not certified Bob's User ID.
+    /// # // paul has not certified Bob's User ID.
     /// # let ua = bob.userids().next().expect("have a user id");
     /// # assert_eq!(
     /// #     ua.active_certifications_by_key(
-    /// #         P, t0, alice.primary_key().key()).count(),
+    /// #         P, t0, paul.primary_key().key()).count(),
     /// #     0);
     /// #
-    /// # // Have Alice certify Bob's certificate.
-    /// # let mut alice_signer = alice
+    /// # // Have paul certify Bob's certificate.
+    /// # let mut paul_signer = paul
     /// #     .keys()
     /// #     .with_policy(P, None)
     /// #     .for_certification()
@@ -1362,7 +1362,7 @@ impl<'a> UserIDAmalgamation<'a> {
     /// #     let certification = SignatureBuilder::new(SignatureType::GenericCertification)
     /// #         .set_signature_creation_time(ti)?
     /// #         .sign_userid_binding(
-    /// #             &mut alice_signer,
+    /// #             &mut paul_signer,
     /// #             bob.primary_key().key(),
     /// #             &UserID::from(bob_userid))?;
     /// #     bob = bob.insert_packets(certification)?.0;
@@ -1370,23 +1370,23 @@ impl<'a> UserIDAmalgamation<'a> {
     /// #     let ua = bob.userids().next().expect("have a user id");
     /// #     assert_eq!(
     /// #         ua.valid_certifications_by_key(
-    /// #             P, ti, alice.primary_key().key()).count(),
+    /// #             P, ti, paul.primary_key().key()).count(),
     /// #         i);
     /// #
     /// #     assert_eq!(
     /// #         ua.active_certifications_by_key(
-    /// #             P, ti, alice.primary_key().key()).count(),
+    /// #             P, ti, paul.primary_key().key()).count(),
     /// #         1);
     /// # }
     /// let ua = bob.userids().next().expect("have user id");
     ///
     /// let valid_certifications = ua.valid_certifications_by_key(
-    ///     P, None, alice.primary_key().key());
-    /// // Alice certified Bob's certificate twice.
+    ///     P, None, paul.primary_key().key());
+    /// // paul certified Bob's certificate twice.
     /// assert_eq!(valid_certifications.count(), 2);
     ///
     /// let active_certifications = ua.active_certifications_by_key(
-    ///     P, None, alice.primary_key().key());
+    ///     P, None, paul.primary_key().key());
     /// // But only the most recent one is active.
     /// assert_eq!(active_certifications.count(), 1);
     /// # Ok(()) }
@@ -1430,7 +1430,7 @@ impl<'a> UserIDAmalgamation<'a> {
     ///
     /// Unlike self-signatures, multiple third-party certifications
     /// issued by the same key at the same time can be sensible.  For
-    /// instance, Alice may fully trust a CA for user IDs in a
+    /// instance, paul may fully trust a CA for user IDs in a
     /// particular domain, and partially trust it for everything else.
     /// This can only be expressed using multiple certifications.
     ///
@@ -1483,7 +1483,7 @@ impl<'a> UserIDAmalgamation<'a> {
     ///
     /// # Examples
     ///
-    /// Alice revokes a user ID on Bob's certificate.
+    /// paul revokes a user ID on Bob's certificate.
     ///
     /// ```rust
     /// use sequoia_openpgp as openpgp;
@@ -1503,13 +1503,13 @@ impl<'a> UserIDAmalgamation<'a> {
     /// # let t0 = epoch;
     /// # let t1 = epoch + std::time::Duration::new(1, 0);
     /// #
-    /// # let (alice, _) = CertBuilder::new()
+    /// # let (paul, _) = CertBuilder::new()
     /// #     .set_creation_time(t0)
-    /// #     .add_userid("<alice@example.org>")
+    /// #     .add_userid("<paul@example.org>")
     /// #     .generate()
     /// #     .unwrap();
-    /// let alice: Cert = // ...
-    /// # alice;
+    /// let paul: Cert = // ...
+    /// # paul;
     /// #
     /// # let bob_userid = "<bob@example.org>";
     /// # let (bob, _) = CertBuilder::new()
@@ -1520,15 +1520,15 @@ impl<'a> UserIDAmalgamation<'a> {
     /// let bob: Cert = // ...
     /// # bob;
     ///
-    /// # // Alice has not certified Bob's User ID.
+    /// # // paul has not certified Bob's User ID.
     /// # let ua = bob.userids().next().expect("have a user id");
     /// # assert_eq!(
     /// #     ua.active_certifications_by_key(
-    /// #         P, t0, alice.primary_key().key()).count(),
+    /// #         P, t0, paul.primary_key().key()).count(),
     /// #     0);
     /// #
-    /// # // Have Alice certify Bob's certificate.
-    /// # let mut alice_signer = alice
+    /// # // Have paul certify Bob's certificate.
+    /// # let mut paul_signer = paul
     /// #     .keys()
     /// #     .with_policy(P, None)
     /// #     .for_certification()
@@ -1543,7 +1543,7 @@ impl<'a> UserIDAmalgamation<'a> {
     /// #     .set_reason_for_revocation(
     /// #         ReasonForRevocation::UIDRetired, b"")?
     /// #     .sign_userid_binding(
-    /// #         &mut alice_signer,
+    /// #         &mut paul_signer,
     /// #         bob.primary_key().key(),
     /// #         &UserID::from(bob_userid))?;
     /// # let bob = bob.insert_packets([
@@ -1553,8 +1553,8 @@ impl<'a> UserIDAmalgamation<'a> {
     /// let ua = bob.userids().next().expect("have user id");
     ///
     /// let revs = ua.valid_third_party_revocations_by_key(
-    ///     P, None, alice.primary_key().key());
-    /// // Alice revoked the User ID.
+    ///     P, None, paul.primary_key().key());
+    /// // paul revoked the User ID.
     /// assert_eq!(revs.count(), 1);
     /// # Ok(()) }
     /// ```
@@ -1605,11 +1605,11 @@ impl<'a> UserIDAmalgamation<'a> {
     /// # use openpgp::packet::signature::SignatureBuilder;
     /// # use openpgp::types::*;
     /// # let policy = &openpgp::policy::StandardPolicy::new();
-    /// let (alice, _) = CertBuilder::new()
-    ///     .add_userid("alice@example.org")
+    /// let (paul, _) = CertBuilder::new()
+    ///     .add_userid("paul@example.org")
     ///     .generate()?;
-    /// let mut alice_signer =
-    ///     alice.primary_key().key().clone().parts_into_secret()?
+    /// let mut paul_signer =
+    ///     paul.primary_key().key().clone().parts_into_secret()?
     ///     .into_keypair()?;
     ///
     /// let (bob, _) = CertBuilder::new()
@@ -1620,13 +1620,13 @@ impl<'a> UserIDAmalgamation<'a> {
     ///     .into_keypair()?;
     /// let bob_pristine = bob.clone();
     ///
-    /// // Have Alice certify the binding between "bob@example.org" and
+    /// // Have paul certify the binding between "bob@example.org" and
     /// // Bob's key.
-    /// let alice_certifies_bob
+    /// let paul_certifies_bob
     ///     = bob.userids().next().unwrap().userid().bind(
-    ///         &mut alice_signer, &bob,
+    ///         &mut paul_signer, &bob,
     ///         SignatureBuilder::new(SignatureType::GenericCertification))?;
-    /// let bob = bob.insert_packets(vec![alice_certifies_bob.clone()])?.0;
+    /// let bob = bob.insert_packets(vec![paul_certifies_bob.clone()])?.0;
     ///
     /// // Have Bob approve of that certification.
     /// let bobs_uid = bob.userids().next().unwrap();
@@ -1640,7 +1640,7 @@ impl<'a> UserIDAmalgamation<'a> {
     ///
     /// assert_eq!(bob.bad_signatures().count(), 0);
     /// assert_eq!(bob.userids().next().unwrap().certifications().next(),
-    ///            Some(&alice_certifies_bob));
+    ///            Some(&paul_certifies_bob));
     /// # Ok(()) }
     /// ```
     pub fn approve_of_certifications<T, C, S>(&self,
@@ -1686,7 +1686,7 @@ impl<'a> UserAttributeAmalgamation<'a> {
     /// #
     /// # fn main() -> openpgp::Result<()> {
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// // Display some information about the User Attributes
     /// for ua in cert.user_attributes() {
@@ -1722,7 +1722,7 @@ impl<'a> UserAttributeAmalgamation<'a> {
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// // Display the User Attributes' revocation status.
     /// for (i, ua) in cert.user_attributes().enumerate() {
@@ -1934,7 +1934,7 @@ impl<'a> UnknownComponentAmalgamation<'a> {
     /// #
     /// # fn main() -> openpgp::Result<()> {
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// // Display some information about the Unknown components.
     /// for u in cert.unknowns() {
@@ -1986,7 +1986,7 @@ impl<'a> UnknownComponentAmalgamation<'a> {
 /// # fn main() -> openpgp::Result<()> {
 /// let p = &StandardPolicy::new();
 /// # let (cert, _) = CertBuilder::new()
-/// #     .add_userid("Alice")
+/// #     .add_userid("paul")
 /// #     .add_signing_subkey()
 /// #     .add_transport_encryption_subkey()
 /// #     .generate()?;
@@ -2044,7 +2044,7 @@ impl<'a, C> ValidComponentAmalgamation<'a, C> {
     /// #
     /// # fn main() -> openpgp::Result<()> {
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for u in cert.userids() {
     ///     // It's not only an identical `Cert`, it's the same one.
@@ -2075,7 +2075,7 @@ impl<'a, C> ValidComponentAmalgamation<'a, C> {
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// // Display information about each User ID's current active
     /// // binding signature (the `time` parameter is `None`), if any.
@@ -2101,7 +2101,7 @@ impl<'a, C> ValidComponentAmalgamation<'a, C> {
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) = CertBuilder::new()
-    /// #     .add_userid("Alice")
+    /// #     .add_userid("paul")
     /// #     .add_signing_subkey()
     /// #     .add_transport_encryption_subkey()
     /// #     .generate()?;
@@ -2132,7 +2132,7 @@ impl<'a, C> ValidComponentAmalgamation<'a, C> {
     /// let p = &openpgp::policy::StandardPolicy::new();
     ///
     /// # let (cert, _) = CertBuilder::new()
-    /// #     .add_userid("Alice")
+    /// #     .add_userid("paul")
     /// #     .add_signing_subkey()
     /// #     .add_transport_encryption_subkey()
     /// #     .generate()?;
@@ -2154,7 +2154,7 @@ impl<'a, C> ValidComponentAmalgamation<'a, C> {
     /// # use openpgp::cert::prelude::*;
     /// # fn main() -> openpgp::Result<()> {
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// let p = &openpgp::policy::StandardPolicy::new();
     ///
@@ -2190,7 +2190,7 @@ where
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for (i, ka) in cert.with_policy(p, None)?.keys().enumerate() {
     ///     eprintln!("Key #{} ({}) has {:?} self signatures",
@@ -2224,7 +2224,7 @@ where
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for ua in cert.with_policy(p, None)?.userids() {
     ///     eprintln!("User ID {} has {:?} unverified, third-party certifications",
@@ -2259,7 +2259,7 @@ where
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for u in cert.with_policy(p, None)?.userids() {
     ///     eprintln!("User ID {} has {:?} revocation certificates.",
@@ -2294,7 +2294,7 @@ where
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for u in cert.with_policy(p, None)?.userids() {
     ///     eprintln!("User ID {} has {:?} unverified, third-party revocation certificates.",
@@ -2337,7 +2337,7 @@ where
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for (i, uid) in cert.with_policy(p, None)?.userids().enumerate() {
     ///     eprintln!("UserID #{} ({:?}) has {:?} certification approval key signatures",
@@ -2380,7 +2380,7 @@ where
     /// let p = &StandardPolicy::new();
     ///
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// for (i, ka) in cert.with_policy(p, None)?.keys().enumerate() {
     ///     eprintln!("Key #{} ({}) has {:?} signatures",
@@ -2419,7 +2419,7 @@ impl<'a> ValidUserIDAmalgamation<'a> {
     /// #
     /// # fn main() -> openpgp::Result<()> {
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// // Display some information about the User IDs.
     /// for ua in cert.userids() {
@@ -2544,11 +2544,11 @@ impl<'a> ValidUserIDAmalgamation<'a> {
     /// # use openpgp::packet::signature::SignatureBuilder;
     /// # use openpgp::types::*;
     /// # let policy = &openpgp::policy::StandardPolicy::new();
-    /// let (alice, _) = CertBuilder::new()
-    ///     .add_userid("alice@example.org")
+    /// let (paul, _) = CertBuilder::new()
+    ///     .add_userid("paul@example.org")
     ///     .generate()?;
-    /// let mut alice_signer =
-    ///     alice.primary_key().key().clone().parts_into_secret()?
+    /// let mut paul_signer =
+    ///     paul.primary_key().key().clone().parts_into_secret()?
     ///     .into_keypair()?;
     ///
     /// let (bob, _) = CertBuilder::new()
@@ -2559,13 +2559,13 @@ impl<'a> ValidUserIDAmalgamation<'a> {
     ///     .into_keypair()?;
     /// let bob_pristine = bob.clone();
     ///
-    /// // Have Alice certify the binding between "bob@example.org" and
+    /// // Have paul certify the binding between "bob@example.org" and
     /// // Bob's key.
-    /// let alice_certifies_bob
+    /// let paul_certifies_bob
     ///     = bob.userids().next().unwrap().userid().bind(
-    ///         &mut alice_signer, &bob,
+    ///         &mut paul_signer, &bob,
     ///         SignatureBuilder::new(SignatureType::GenericCertification))?;
-    /// let bob = bob.insert_packets(vec![alice_certifies_bob.clone()])?.0;
+    /// let bob = bob.insert_packets(vec![paul_certifies_bob.clone()])?.0;
     ///
     /// // Have Bob approve of that certification.
     /// let bobs_uid = bob.with_policy(policy, None)?.userids().next().unwrap();
@@ -2577,7 +2577,7 @@ impl<'a> ValidUserIDAmalgamation<'a> {
     ///
     /// assert_eq!(bob.bad_signatures().count(), 0);
     /// assert_eq!(bob.userids().next().unwrap().certifications().next(),
-    ///            Some(&alice_certifies_bob));
+    ///            Some(&paul_certifies_bob));
     /// # Ok(()) }
     /// ```
     pub fn approve_of_certifications<C, S>(&self,
@@ -2616,7 +2616,7 @@ impl<'a> ValidUserAttributeAmalgamation<'a> {
     /// #
     /// # fn main() -> openpgp::Result<()> {
     /// # let (cert, _) =
-    /// #     CertBuilder::general_purpose(Some("alice@example.org"))
+    /// #     CertBuilder::general_purpose(Some("paul@example.org"))
     /// #     .generate()?;
     /// // Display some information about the User IDs.
     /// for ua in cert.user_attributes() {
@@ -3071,10 +3071,10 @@ mod test {
 
     #[test]
     fn component_amalgamation_certifications_by_key() -> Result<()> {
-        // Alice and Bob certify Carol's certificate.  We then check
+        // paul and Bob certify Carol's certificate.  We then check
         // that certifications_by_key returns them.
-        let (alice, _) = CertBuilder::new()
-            .add_userid("<alice@example.example>")
+        let (paul, _) = CertBuilder::new()
+            .add_userid("<paul@example.example>")
             .generate()
             .unwrap();
 
@@ -3089,27 +3089,27 @@ mod test {
             .generate()
             .unwrap();
 
-        let ua = alice.userids().next().expect("have a user id");
-        assert_eq!(ua.certifications_by_key(&[ alice.key_handle() ]).count(), 0);
+        let ua = paul.userids().next().expect("have a user id");
+        assert_eq!(ua.certifications_by_key(&[ paul.key_handle() ]).count(), 0);
 
-        // Alice has not certified Bob's User ID.
+        // paul has not certified Bob's User ID.
         let ua = bob.userids().next().expect("have a user id");
-        assert_eq!(ua.certifications_by_key(&[ alice.key_handle() ]).count(), 0);
+        assert_eq!(ua.certifications_by_key(&[ paul.key_handle() ]).count(), 0);
 
-        // Alice has not certified Carol's User ID.
+        // paul has not certified Carol's User ID.
         let ua = carol.userids().next().expect("have a user id");
-        assert_eq!(ua.certifications_by_key(&[ alice.key_handle() ]).count(), 0);
+        assert_eq!(ua.certifications_by_key(&[ paul.key_handle() ]).count(), 0);
 
 
-        // Have Alice certify Carol's certificate.
-        let mut alice_signer = alice.primary_key()
+        // Have paul certify Carol's certificate.
+        let mut paul_signer = paul.primary_key()
             .key()
             .clone()
             .parts_into_secret().expect("have unencrypted key material")
             .into_keypair().expect("have unencrypted key material");
         let certification = SignatureBuilder::new(SignatureType::GenericCertification)
             .sign_userid_binding(
-                &mut alice_signer,
+                &mut paul_signer,
                 carol.primary_key().key(),
                 &UserID::from(carol_userid))?;
         let carol = carol.insert_packets(certification)?.0;
@@ -3117,7 +3117,7 @@ mod test {
         // Check that it is returned.
         let ua = carol.userids().next().expect("have a user id");
         assert_eq!(ua.certifications().count(), 1);
-        assert_eq!(ua.certifications_by_key(&[ alice.key_handle() ]).count(), 1);
+        assert_eq!(ua.certifications_by_key(&[ paul.key_handle() ]).count(), 1);
         assert_eq!(ua.certifications_by_key(&[ bob.key_handle() ]).count(), 0);
 
 
@@ -3137,7 +3137,7 @@ mod test {
         // Check that it is returned.
         let ua = carol.userids().next().expect("have a user id");
         assert_eq!(ua.certifications().count(), 2);
-        assert_eq!(ua.certifications_by_key(&[ alice.key_handle() ]).count(), 1);
+        assert_eq!(ua.certifications_by_key(&[ paul.key_handle() ]).count(), 1);
         assert_eq!(ua.certifications_by_key(&[ bob.key_handle() ]).count(), 1);
 
         // Again.
@@ -3151,7 +3151,7 @@ mod test {
         // Check that it is returned.
         let ua = carol.userids().next().expect("have a user id");
         assert_eq!(ua.certifications().count(), 3);
-        assert_eq!(ua.certifications_by_key(&[ alice.key_handle() ]).count(), 1);
+        assert_eq!(ua.certifications_by_key(&[ paul.key_handle() ]).count(), 1);
         assert_eq!(ua.certifications_by_key(&[ bob.key_handle() ]).count(), 2);
 
         Ok(())
@@ -3159,7 +3159,7 @@ mod test {
 
     #[test]
     fn user_id_amalgamation_certifications_by_key() -> Result<()> {
-        // Alice and Bob certify Carol's certificate.  We then check
+        // paul and Bob certify Carol's certificate.  We then check
         // that valid_certifications_by_key and
         // active_certifications_by_key return them.
         let p = &crate::policy::StandardPolicy::new();
@@ -3171,12 +3171,12 @@ mod test {
         // $ date -u -d '2024-01-02 15:00' +%s
         let t2 = UNIX_EPOCH + Duration::new(1704207600, 0);
 
-        let (alice, _) = CertBuilder::new()
+        let (paul, _) = CertBuilder::new()
             .set_creation_time(t0)
-            .add_userid("<alice@example.example>")
+            .add_userid("<paul@example.example>")
             .generate()
             .unwrap();
-        let alice_primary = alice.primary_key().key();
+        let paul_primary = paul.primary_key().key();
 
         let (bob, _) = CertBuilder::new()
             .set_creation_time(t0)
@@ -3192,30 +3192,30 @@ mod test {
             .generate()
             .unwrap();
 
-        let ua = alice.userids().next().expect("have a user id");
-        assert_eq!(ua.valid_certifications_by_key(p, None, alice_primary).count(), 0);
-        assert_eq!(ua.active_certifications_by_key(p, None, alice_primary).count(), 0);
+        let ua = paul.userids().next().expect("have a user id");
+        assert_eq!(ua.valid_certifications_by_key(p, None, paul_primary).count(), 0);
+        assert_eq!(ua.active_certifications_by_key(p, None, paul_primary).count(), 0);
 
-        // Alice has not certified Bob's User ID.
+        // paul has not certified Bob's User ID.
         let ua = bob.userids().next().expect("have a user id");
-        assert_eq!(ua.valid_certifications_by_key(p, None, alice_primary).count(), 0);
-        assert_eq!(ua.active_certifications_by_key(p, None, alice_primary).count(), 0);
+        assert_eq!(ua.valid_certifications_by_key(p, None, paul_primary).count(), 0);
+        assert_eq!(ua.active_certifications_by_key(p, None, paul_primary).count(), 0);
 
-        // Alice has not certified Carol's User ID.
+        // paul has not certified Carol's User ID.
         let ua = carol.userids().next().expect("have a user id");
-        assert_eq!(ua.valid_certifications_by_key(p, None, alice_primary).count(), 0);
-        assert_eq!(ua.active_certifications_by_key(p, None, alice_primary).count(), 0);
+        assert_eq!(ua.valid_certifications_by_key(p, None, paul_primary).count(), 0);
+        assert_eq!(ua.active_certifications_by_key(p, None, paul_primary).count(), 0);
 
 
-        // Have Alice certify Carol's certificate at t1.
-        let mut alice_signer = alice_primary
+        // Have paul certify Carol's certificate at t1.
+        let mut paul_signer = paul_primary
             .clone()
             .parts_into_secret().expect("have unencrypted key material")
             .into_keypair().expect("have unencrypted key material");
         let certification = SignatureBuilder::new(SignatureType::GenericCertification)
             .set_signature_creation_time(t1)?
             .sign_userid_binding(
-                &mut alice_signer,
+                &mut paul_signer,
                 carol.primary_key().key(),
                 &UserID::from(carol_userid))?;
         let carol = carol.insert_packets(certification.clone())?.0;
@@ -3224,27 +3224,27 @@ mod test {
         let ua = carol.userids().next().expect("have a user id");
         assert_eq!(ua.certifications().count(), 1);
 
-        assert_eq!(ua.valid_certifications_by_key(p, t0, alice_primary).count(), 0);
-        assert_eq!(ua.active_certifications_by_key(p, t0, alice_primary).count(), 0);
+        assert_eq!(ua.valid_certifications_by_key(p, t0, paul_primary).count(), 0);
+        assert_eq!(ua.active_certifications_by_key(p, t0, paul_primary).count(), 0);
 
-        assert_eq!(ua.valid_certifications_by_key(p, t1, alice_primary).count(), 1);
-        assert_eq!(ua.active_certifications_by_key(p, t1, alice_primary).count(), 1);
+        assert_eq!(ua.valid_certifications_by_key(p, t1, paul_primary).count(), 1);
+        assert_eq!(ua.active_certifications_by_key(p, t1, paul_primary).count(), 1);
 
         assert_eq!(ua.valid_certifications_by_key(p, t1, bob_primary).count(), 0);
         assert_eq!(ua.active_certifications_by_key(p, t1, bob_primary).count(), 0);
 
 
-        // Have Alice certify Carol's certificate at t1 (again).
+        // Have paul certify Carol's certificate at t1 (again).
         // Since both certifications were created at t1, they should
         // both be returned.
-        let mut alice_signer = alice_primary
+        let mut paul_signer = paul_primary
             .clone()
             .parts_into_secret().expect("have unencrypted key material")
             .into_keypair().expect("have unencrypted key material");
         let certification = SignatureBuilder::new(SignatureType::GenericCertification)
             .set_signature_creation_time(t1)?
             .sign_userid_binding(
-                &mut alice_signer,
+                &mut paul_signer,
                 carol.primary_key().key(),
                 &UserID::from(carol_userid))?;
         let carol = carol.insert_packets(certification.clone())?.0;
@@ -3252,29 +3252,29 @@ mod test {
         // Check that it is returned.
         let ua = carol.userids().next().expect("have a user id");
         assert_eq!(ua.certifications().count(), 2);
-        assert_eq!(ua.valid_certifications_by_key(p, t0, alice_primary).count(), 0);
-        assert_eq!(ua.active_certifications_by_key(p, t0, alice_primary).count(), 0);
+        assert_eq!(ua.valid_certifications_by_key(p, t0, paul_primary).count(), 0);
+        assert_eq!(ua.active_certifications_by_key(p, t0, paul_primary).count(), 0);
 
-        assert_eq!(ua.valid_certifications_by_key(p, t1, alice_primary).count(), 2);
-        assert_eq!(ua.active_certifications_by_key(p, t1, alice_primary).count(), 2);
+        assert_eq!(ua.valid_certifications_by_key(p, t1, paul_primary).count(), 2);
+        assert_eq!(ua.active_certifications_by_key(p, t1, paul_primary).count(), 2);
 
-        assert_eq!(ua.valid_certifications_by_key(p, t2, alice_primary).count(), 2);
-        assert_eq!(ua.active_certifications_by_key(p, t2, alice_primary).count(), 2);
+        assert_eq!(ua.valid_certifications_by_key(p, t2, paul_primary).count(), 2);
+        assert_eq!(ua.active_certifications_by_key(p, t2, paul_primary).count(), 2);
 
         assert_eq!(ua.valid_certifications_by_key(p, t0, bob_primary).count(), 0);
         assert_eq!(ua.active_certifications_by_key(p, t0, bob_primary).count(), 0);
 
 
-        // Have Alice certify Carol's certificate at t2.  Now we only
+        // Have paul certify Carol's certificate at t2.  Now we only
         // have one active certification.
-        let mut alice_signer = alice_primary
+        let mut paul_signer = paul_primary
             .clone()
             .parts_into_secret().expect("have unencrypted key material")
             .into_keypair().expect("have unencrypted key material");
         let certification = SignatureBuilder::new(SignatureType::GenericCertification)
             .set_signature_creation_time(t2)?
             .sign_userid_binding(
-                &mut alice_signer,
+                &mut paul_signer,
                 carol.primary_key().key(),
                 &UserID::from(carol_userid))?;
         let carol = carol.insert_packets(certification.clone())?.0;
@@ -3282,14 +3282,14 @@ mod test {
         // Check that it is returned.
         let ua = carol.userids().next().expect("have a user id");
         assert_eq!(ua.certifications().count(), 3);
-        assert_eq!(ua.valid_certifications_by_key(p, t0, alice_primary).count(), 0);
-        assert_eq!(ua.active_certifications_by_key(p, t0, alice_primary).count(), 0);
+        assert_eq!(ua.valid_certifications_by_key(p, t0, paul_primary).count(), 0);
+        assert_eq!(ua.active_certifications_by_key(p, t0, paul_primary).count(), 0);
 
-        assert_eq!(ua.valid_certifications_by_key(p, t1, alice_primary).count(), 2);
-        assert_eq!(ua.active_certifications_by_key(p, t1, alice_primary).count(), 2);
+        assert_eq!(ua.valid_certifications_by_key(p, t1, paul_primary).count(), 2);
+        assert_eq!(ua.active_certifications_by_key(p, t1, paul_primary).count(), 2);
 
-        assert_eq!(ua.valid_certifications_by_key(p, t2, alice_primary).count(), 3);
-        assert_eq!(ua.active_certifications_by_key(p, t2, alice_primary).count(), 1);
+        assert_eq!(ua.valid_certifications_by_key(p, t2, paul_primary).count(), 3);
+        assert_eq!(ua.active_certifications_by_key(p, t2, paul_primary).count(), 1);
 
         assert_eq!(ua.valid_certifications_by_key(p, t0, bob_primary).count(), 0);
         assert_eq!(ua.active_certifications_by_key(p, t0, bob_primary).count(), 0);
@@ -3314,14 +3314,14 @@ mod test {
         let ua = carol.userids().next().expect("have a user id");
         assert_eq!(ua.certifications().count(), 4);
 
-        assert_eq!(ua.valid_certifications_by_key(p, t0, alice_primary).count(), 0);
-        assert_eq!(ua.active_certifications_by_key(p, t0, alice_primary).count(), 0);
+        assert_eq!(ua.valid_certifications_by_key(p, t0, paul_primary).count(), 0);
+        assert_eq!(ua.active_certifications_by_key(p, t0, paul_primary).count(), 0);
 
-        assert_eq!(ua.valid_certifications_by_key(p, t1, alice_primary).count(), 2);
-        assert_eq!(ua.active_certifications_by_key(p, t1, alice_primary).count(), 2);
+        assert_eq!(ua.valid_certifications_by_key(p, t1, paul_primary).count(), 2);
+        assert_eq!(ua.active_certifications_by_key(p, t1, paul_primary).count(), 2);
 
-        assert_eq!(ua.valid_certifications_by_key(p, t2, alice_primary).count(), 3);
-        assert_eq!(ua.active_certifications_by_key(p, t2, alice_primary).count(), 1);
+        assert_eq!(ua.valid_certifications_by_key(p, t2, paul_primary).count(), 3);
+        assert_eq!(ua.active_certifications_by_key(p, t2, paul_primary).count(), 1);
 
         assert_eq!(ua.valid_certifications_by_key(p, t0, bob_primary).count(), 0);
         assert_eq!(ua.active_certifications_by_key(p, t0, bob_primary).count(), 0);
@@ -3352,14 +3352,14 @@ mod test {
         // Check that it is returned.
         let ua = carol.userids().next().expect("have a user id");
         assert_eq!(ua.certifications().count(), 5);
-        assert_eq!(ua.valid_certifications_by_key(p, t0, alice_primary).count(), 0);
-        assert_eq!(ua.active_certifications_by_key(p, t0, alice_primary).count(), 0);
+        assert_eq!(ua.valid_certifications_by_key(p, t0, paul_primary).count(), 0);
+        assert_eq!(ua.active_certifications_by_key(p, t0, paul_primary).count(), 0);
 
-        assert_eq!(ua.valid_certifications_by_key(p, t1, alice_primary).count(), 2);
-        assert_eq!(ua.active_certifications_by_key(p, t1, alice_primary).count(), 2);
+        assert_eq!(ua.valid_certifications_by_key(p, t1, paul_primary).count(), 2);
+        assert_eq!(ua.active_certifications_by_key(p, t1, paul_primary).count(), 2);
 
-        assert_eq!(ua.valid_certifications_by_key(p, t2, alice_primary).count(), 3);
-        assert_eq!(ua.active_certifications_by_key(p, t2, alice_primary).count(), 1);
+        assert_eq!(ua.valid_certifications_by_key(p, t2, paul_primary).count(), 3);
+        assert_eq!(ua.active_certifications_by_key(p, t2, paul_primary).count(), 1);
 
         assert_eq!(ua.valid_certifications_by_key(p, t0, bob_primary).count(), 0);
         assert_eq!(ua.active_certifications_by_key(p, t0, bob_primary).count(), 0);
@@ -3376,7 +3376,7 @@ mod test {
 
     #[test]
     fn user_id_amalgamation_third_party_revocations_by_key() -> Result<()> {
-        // Alice and Bob revoke Carol's User ID.  We then check
+        // paul and Bob revoke Carol's User ID.  We then check
         // that valid_third_party_revocations_by_key returns them.
         let p = &crate::policy::StandardPolicy::new();
 
@@ -3387,12 +3387,12 @@ mod test {
         // $ date -u -d '2024-01-02 15:00' +%s
         let t2 = UNIX_EPOCH + Duration::new(1704207600, 0);
 
-        let (alice, _) = CertBuilder::new()
+        let (paul, _) = CertBuilder::new()
             .set_creation_time(t0)
-            .add_userid("<alice@example.example>")
+            .add_userid("<paul@example.example>")
             .generate()
             .unwrap();
-        let alice_primary = alice.primary_key().key();
+        let paul_primary = paul.primary_key().key();
 
         let (bob, _) = CertBuilder::new()
             .set_creation_time(t0)
@@ -3409,20 +3409,20 @@ mod test {
             .unwrap();
         let carol_userid = UserID::from(carol_userid);
 
-        let ua = alice.userids().next().expect("have a user id");
-        assert_eq!(ua.valid_third_party_revocations_by_key(p, None, alice_primary).count(), 0);
+        let ua = paul.userids().next().expect("have a user id");
+        assert_eq!(ua.valid_third_party_revocations_by_key(p, None, paul_primary).count(), 0);
 
-        // Alice has not certified Bob's User ID.
+        // paul has not certified Bob's User ID.
         let ua = bob.userids().next().expect("have a user id");
-        assert_eq!(ua.valid_third_party_revocations_by_key(p, None, alice_primary).count(), 0);
+        assert_eq!(ua.valid_third_party_revocations_by_key(p, None, paul_primary).count(), 0);
 
-        // Alice has not certified Carol's User ID.
+        // paul has not certified Carol's User ID.
         let ua = carol.userids().next().expect("have a user id");
-        assert_eq!(ua.valid_third_party_revocations_by_key(p, None, alice_primary).count(), 0);
+        assert_eq!(ua.valid_third_party_revocations_by_key(p, None, paul_primary).count(), 0);
 
 
-        // Have Alice revoke Carol's certificate at t1.
-        let mut alice_signer = alice_primary
+        // Have paul revoke Carol's certificate at t1.
+        let mut paul_signer = paul_primary
             .clone()
             .parts_into_secret().expect("have unencrypted key material")
             .into_keypair().expect("have unencrypted key material");
@@ -3431,7 +3431,7 @@ mod test {
             .set_reason_for_revocation(
                 ReasonForRevocation::UIDRetired, b"")?
             .sign_userid_binding(
-                &mut alice_signer,
+                &mut paul_signer,
                 carol.primary_key().key(),
                 &carol_userid)?;
         let carol = carol.insert_packets([
@@ -3443,15 +3443,15 @@ mod test {
         let ua = carol.userids().next().expect("have a user id");
         assert_eq!(ua.other_revocations().count(), 1);
 
-        assert_eq!(ua.valid_third_party_revocations_by_key(p, t0, alice_primary).count(), 0);
-        assert_eq!(ua.valid_third_party_revocations_by_key(p, t1, alice_primary).count(), 1);
+        assert_eq!(ua.valid_third_party_revocations_by_key(p, t0, paul_primary).count(), 0);
+        assert_eq!(ua.valid_third_party_revocations_by_key(p, t1, paul_primary).count(), 1);
         assert_eq!(ua.valid_third_party_revocations_by_key(p, t1, bob_primary).count(), 0);
 
 
-        // Have Alice certify Carol's certificate at t1 (again).
+        // Have paul certify Carol's certificate at t1 (again).
         // Since both certifications were created at t1, they should
         // both be returned.
-        let mut alice_signer = alice_primary
+        let mut paul_signer = paul_primary
             .clone()
             .parts_into_secret().expect("have unencrypted key material")
             .into_keypair().expect("have unencrypted key material");
@@ -3459,7 +3459,7 @@ mod test {
             .set_signature_creation_time(t1)?
             .set_reason_for_revocation(ReasonForRevocation::UIDRetired, b"")?
             .sign_userid_binding(
-                &mut alice_signer,
+                &mut paul_signer,
                 carol.primary_key().key(),
                 &carol_userid)?;
         let carol = carol.insert_packets([
@@ -3470,15 +3470,15 @@ mod test {
         // Check that it is returned.
         let ua = carol.userids().next().expect("have a user id");
         assert_eq!(ua.other_revocations().count(), 2);
-        assert_eq!(ua.valid_third_party_revocations_by_key(p, t0, alice_primary).count(), 0);
-        assert_eq!(ua.valid_third_party_revocations_by_key(p, t1, alice_primary).count(), 2);
-        assert_eq!(ua.valid_third_party_revocations_by_key(p, t2, alice_primary).count(), 2);
+        assert_eq!(ua.valid_third_party_revocations_by_key(p, t0, paul_primary).count(), 0);
+        assert_eq!(ua.valid_third_party_revocations_by_key(p, t1, paul_primary).count(), 2);
+        assert_eq!(ua.valid_third_party_revocations_by_key(p, t2, paul_primary).count(), 2);
         assert_eq!(ua.valid_third_party_revocations_by_key(p, t0, bob_primary).count(), 0);
 
 
-        // Have Alice certify Carol's certificate at t2.  Now we only
+        // Have paul certify Carol's certificate at t2.  Now we only
         // have one active certification.
-        let mut alice_signer = alice_primary
+        let mut paul_signer = paul_primary
             .clone()
             .parts_into_secret().expect("have unencrypted key material")
             .into_keypair().expect("have unencrypted key material");
@@ -3486,7 +3486,7 @@ mod test {
             .set_signature_creation_time(t2)?
             .set_reason_for_revocation(ReasonForRevocation::UIDRetired, b"")?
             .sign_userid_binding(
-                &mut alice_signer,
+                &mut paul_signer,
                 carol.primary_key().key(),
                 &carol_userid)?;
         let carol = carol.insert_packets([
@@ -3497,9 +3497,9 @@ mod test {
         // Check that it is returned.
         let ua = carol.userids().next().expect("have a user id");
         assert_eq!(ua.other_revocations().count(), 3);
-        assert_eq!(ua.valid_third_party_revocations_by_key(p, t0, alice_primary).count(), 0);
-        assert_eq!(ua.valid_third_party_revocations_by_key(p, t1, alice_primary).count(), 2);
-        assert_eq!(ua.valid_third_party_revocations_by_key(p, t2, alice_primary).count(), 3);
+        assert_eq!(ua.valid_third_party_revocations_by_key(p, t0, paul_primary).count(), 0);
+        assert_eq!(ua.valid_third_party_revocations_by_key(p, t1, paul_primary).count(), 2);
+        assert_eq!(ua.valid_third_party_revocations_by_key(p, t2, paul_primary).count(), 3);
         assert_eq!(ua.valid_third_party_revocations_by_key(p, t0, bob_primary).count(), 0);
 
 
@@ -3526,9 +3526,9 @@ mod test {
         let ua = carol.userids().next().expect("have a user id");
         assert_eq!(ua.other_revocations().count(), 4);
 
-        assert_eq!(ua.valid_third_party_revocations_by_key(p, t0, alice_primary).count(), 0);
-        assert_eq!(ua.valid_third_party_revocations_by_key(p, t1, alice_primary).count(), 2);
-        assert_eq!(ua.valid_third_party_revocations_by_key(p, t2, alice_primary).count(), 3);
+        assert_eq!(ua.valid_third_party_revocations_by_key(p, t0, paul_primary).count(), 0);
+        assert_eq!(ua.valid_third_party_revocations_by_key(p, t1, paul_primary).count(), 2);
+        assert_eq!(ua.valid_third_party_revocations_by_key(p, t2, paul_primary).count(), 3);
         assert_eq!(ua.valid_third_party_revocations_by_key(p, t0, bob_primary).count(), 0);
         assert_eq!(ua.valid_third_party_revocations_by_key(p, t1, bob_primary).count(), 1);
         // It expired.
@@ -3557,9 +3557,9 @@ mod test {
         // Check that it is returned.
         let ua = carol.userids().next().expect("have a user id");
         assert_eq!(ua.other_revocations().count(), 5);
-        assert_eq!(ua.valid_third_party_revocations_by_key(p, t0, alice_primary).count(), 0);
-        assert_eq!(ua.valid_third_party_revocations_by_key(p, t1, alice_primary).count(), 2);
-        assert_eq!(ua.valid_third_party_revocations_by_key(p, t2, alice_primary).count(), 3);
+        assert_eq!(ua.valid_third_party_revocations_by_key(p, t0, paul_primary).count(), 0);
+        assert_eq!(ua.valid_third_party_revocations_by_key(p, t1, paul_primary).count(), 2);
+        assert_eq!(ua.valid_third_party_revocations_by_key(p, t2, paul_primary).count(), 3);
         assert_eq!(ua.valid_third_party_revocations_by_key(p, t0, bob_primary).count(), 0);
         assert_eq!(ua.valid_third_party_revocations_by_key(p, t1, bob_primary).count(), 2);
         // One of the certifications expired.

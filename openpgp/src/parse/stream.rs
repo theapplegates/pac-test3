@@ -4422,48 +4422,48 @@ xHUDBRY0WIQ+50WENDPP";
             ),
             // rpgp artifacts
             (
-            "pqc/rpgp/rsop_draft-ietf-openpgp-pqc-08-v4-ed25519-mlkem768x25519_alice_pk.pgp",
+            "pqc/rpgp/rsop_draft-ietf-openpgp-pqc-08-v4-ed25519-mlkem768x25519_paul_pk.pgp",
             "pqc/rpgp/rsop_draft-ietf-openpgp-pqc-08-v4-ed25519-mlkem768x25519_detached_sig.pgp",
             "Hello World\n"
             ),
             (
-            "pqc/rpgp/rsop_draft-ietf-openpgp-pqc-08-v6-ed25519-mlkem768x25519_alice_pk.pgp",
+            "pqc/rpgp/rsop_draft-ietf-openpgp-pqc-08-v6-ed25519-mlkem768x25519_paul_pk.pgp",
             "pqc/rpgp/rsop_draft-ietf-openpgp-pqc-08-v6-ed25519-mlkem768x25519_detached_sig.pgp",
             "Hello World\n"
             ),
             (
-            "pqc/rpgp/rsop_draft-ietf-openpgp-pqc-08-v6-mldsa65ed25519-mlkem768x25519_alice_pk.pgp",
+            "pqc/rpgp/rsop_draft-ietf-openpgp-pqc-08-v6-mldsa65ed25519-mlkem768x25519_paul_pk.pgp",
             "pqc/rpgp/rsop_draft-ietf-openpgp-pqc-08-v6-mldsa65ed25519-mlkem768x25519_detached_sig.pgp",
             "Hello World\n"
             ),
             (
-            "pqc/rpgp/rsop_draft-ietf-openpgp-pqc-08-v6-mldsa87ed448-mlkem1024x448_alice_pk.pgp",
+            "pqc/rpgp/rsop_draft-ietf-openpgp-pqc-08-v6-mldsa87ed448-mlkem1024x448_paul_pk.pgp",
             "pqc/rpgp/rsop_draft-ietf-openpgp-pqc-08-v6-mldsa87ed448-mlkem1024x448_detached_sig.pgp",
             "Hello World\n"
             ),
             (
-            "pqc/rpgp/rsop_draft-ietf-openpgp-pqc-08-v6-slhdsashake128f-mlkem768x25519_alice_pk.pgp",
+            "pqc/rpgp/rsop_draft-ietf-openpgp-pqc-08-v6-slhdsashake128f-mlkem768x25519_paul_pk.pgp",
             "pqc/rpgp/rsop_draft-ietf-openpgp-pqc-08-v6-slhdsashake128f-mlkem768x25519_detached_sig.pgp",
             "Hello World\n"
             ),
             (
-            "pqc/rpgp/rsop_draft-ietf-openpgp-pqc-08-v6-slhdsashake128s-mlkem768x25519_alice_pk.pgp",
+            "pqc/rpgp/rsop_draft-ietf-openpgp-pqc-08-v6-slhdsashake128s-mlkem768x25519_paul_pk.pgp",
             "pqc/rpgp/rsop_draft-ietf-openpgp-pqc-08-v6-slhdsashake128s-mlkem768x25519_detached_sig.pgp",
             "Hello World\n"
             ),
             (
-            "pqc/rpgp/rsop_draft-ietf-openpgp-pqc-08-v6-slhdsashake256s-mlkem1024x448_alice_pk.pgp",
+            "pqc/rpgp/rsop_draft-ietf-openpgp-pqc-08-v6-slhdsashake256s-mlkem1024x448_paul_pk.pgp",
             "pqc/rpgp/rsop_draft-ietf-openpgp-pqc-08-v6-slhdsashake256s-mlkem1024x448_detached_sig.pgp",
             "Hello World\n"
             ),
             // gopenpgp artifacts
             (
-            "pqc/gopenpgp/gosop_draft-ietf-openpgp-pqc-09_alice_pk.pgp",
+            "pqc/gopenpgp/gosop_draft-ietf-openpgp-pqc-09_paul_pk.pgp",
             "pqc/gopenpgp/gosop_draft-ietf-openpgp-pqc-09_detached_sig.pgp",
             "Hello World\n"
             ),
             (
-            "pqc/gopenpgp/gosop_draft-ietf-openpgp-pqc-09-high-security_alice_pk.pgp",
+            "pqc/gopenpgp/gosop_draft-ietf-openpgp-pqc-09-high-security_paul_pk.pgp",
             "pqc/gopenpgp/gosop_draft-ietf-openpgp-pqc-09-high-security_detached_sig.pgp",
             "Hello World\n"
             ),

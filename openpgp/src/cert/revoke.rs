@@ -29,7 +29,7 @@ use crate::cert::prelude::*;
 ///
 /// Normally, the key used to sign the revocation certificate is the
 /// certificate's primary key.  However, this is not required.  For
-/// instance, if Alice has marked Robert's certificate (`R`) as a
+/// instance, if paul has marked Robert's certificate (`R`) as a
 /// [designated revoker] for her certificate (`A`), then `R` can
 /// revoke `A` or parts of `A`.  In this case, the certificate is `A`,
 /// and the key used to sign the revocation certificate comes from
@@ -336,7 +336,7 @@ impl TryFrom<signature::SignatureBuilder> for CertRevocationBuilder {
 /// Normally, the key used to sign the revocation certificate is the
 /// certificate's primary key, and the subkey is a subkey that is
 /// bound to the certificate.  However, this is not required.  For
-/// instance, if Alice has marked Robert's certificate (`R`) as a
+/// instance, if paul has marked Robert's certificate (`R`) as a
 /// [designated revoker] for her certificate (`A`), then `R` can
 /// revoke `A` or parts of `A`.  In such a case, the certificate is
 /// `A`, the key used to sign the revocation certificate comes from
@@ -650,7 +650,7 @@ impl TryFrom<signature::SignatureBuilder> for SubkeyRevocationBuilder {
 /// Normally, the key used to sign the revocation certificate is the
 /// certificate's primary key, and the User ID is a User ID that is
 /// bound to the certificate.  However, this is not required.  For
-/// instance, if Alice has marked Robert's certificate (`R`) as a
+/// instance, if paul has marked Robert's certificate (`R`) as a
 /// [designated revoker] for her certificate (`A`), then `R` can
 /// revoke `A` or parts of `A`.  In such a case, the certificate is
 /// `A`, the key used to sign the revocation certificate comes from
@@ -972,7 +972,7 @@ impl TryFrom<signature::SignatureBuilder> for UserIDRevocationBuilder {
 /// Normally, the key used to sign the revocation certificate is the
 /// certificate's primary key, and the User Attribute is a User
 /// Attribute that is bound to the certificate.  However, this is not
-/// required.  For instance, if Alice has marked Robert's certificate
+/// required.  For instance, if paul has marked Robert's certificate
 /// (`R`) as a [designated revoker] for her certificate (`A`), then
 /// `R` can revoke `A` or parts of `A`.  In such a case, the
 /// certificate is `A`, the key used to sign the revocation

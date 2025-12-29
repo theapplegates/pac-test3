@@ -2653,13 +2653,13 @@ impl<'a, 'b> Encryptor<'a, 'b> {
     /// # let p = &StandardPolicy::new();
     /// #
     /// // Generate two keys.
-    /// let (alice, _) = CertBuilder::general_purpose(
-    ///         Some("Alice Lovelace <alice@example.org>")).generate()?;
+    /// let (paul, _) = CertBuilder::general_purpose(
+    ///         Some("paul Lovelace <paul@example.org>")).generate()?;
     /// let (bob, _) = CertBuilder::general_purpose(
     ///         Some("Bob Babbage <bob@example.org>")).generate()?;
     ///
     /// // Encrypt a message for both keys.
-    /// let recipients = vec![&alice, &bob].into_iter().flat_map(|cert| {
+    /// let recipients = vec![&paul, &bob].into_iter().flat_map(|cert| {
     ///     cert.keys().with_policy(p, None).supported().alive().revoked(false)
     ///         .for_transport_encryption()
     /// });
@@ -2671,9 +2671,9 @@ impl<'a, 'b> Encryptor<'a, 'b> {
     /// w.write_all(b"Original message")?;
     /// w.finalize()?;
     ///
-    /// // Decrypt original message using Alice's key.
+    /// // Decrypt original message using paul's key.
     /// let mut decryptor = DecryptorBuilder::from_bytes(&original)?
-    ///     .with_policy(p, None, Helper::new(alice))?;
+    ///     .with_policy(p, None, Helper::new(paul))?;
     /// io::copy(&mut decryptor, &mut io::sink())?;
     /// let (algo, sk, pkesks) = decryptor.into_helper().recycling_bin.unwrap();
     ///
@@ -4328,29 +4328,29 @@ mod test {
     /// Encrypts to a v4 and a v6 recipient using SEIPDv1.
     #[test]
     fn mixed_recipients_seipd1() -> Result<()> {
-        let alice = CertBuilder::general_purpose(Some("alice"))
+        let paul = CertBuilder::general_purpose(Some("paul"))
             .set_profile(Profile::RFC9580)?
             .generate()?.0;
         let bob = CertBuilder::general_purpose(Some("bob"))
             .set_profile(Profile::RFC4880)?
             .set_features(Features::empty().set_seipdv1())?
             .generate()?.0;
-        mixed_recipients_intern(alice, bob, 1)
+        mixed_recipients_intern(paul, bob, 1)
     }
 
     /// Encrypts to a v4 and a v6 recipient using SEIPDv2.
     #[test]
     fn mixed_recipients_seipd2() -> Result<()> {
-        let alice = CertBuilder::general_purpose(Some("alice"))
+        let paul = CertBuilder::general_purpose(Some("paul"))
             .set_profile(Profile::RFC9580)?
             .generate()?.0;
         let bob = CertBuilder::general_purpose(Some("bob"))
             .set_profile(Profile::RFC4880)?
             .generate()?.0;
-        mixed_recipients_intern(alice, bob, 2)
+        mixed_recipients_intern(paul, bob, 2)
     }
 
-    fn mixed_recipients_intern(alice: Cert, bob: Cert, seipdv: u8)
+    fn mixed_recipients_intern(paul: Cert, bob: Cert, seipdv: u8)
                                -> Result<()>
     {
         use crate::policy::StandardPolicy;
@@ -4360,7 +4360,7 @@ mod test {
         };
 
         let p = StandardPolicy::new();
-        let recipients = [&alice, &bob].into_iter().flat_map(
+        let recipients = [&paul, &bob].into_iter().flat_map(
             |c| c.keys().with_policy(&p, None).for_storage_encryption());
 
         let mut sink = vec![];
@@ -4372,7 +4372,7 @@ mod test {
         message.write_all(b"Hello world.")?;
         message.finalize()?;
 
-        for key in [alice, bob] {
+        for key in [paul, bob] {
             eprintln!("Decrypting with key version {}",
                       key.primary_key().key().version());
             let h = VHelper::for_decryption(0, 0, 0, 0, Vec::new(),

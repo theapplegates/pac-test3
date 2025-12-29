@@ -152,11 +152,11 @@ impl UserID {
     /// # use sequoia_openpgp::{*, packet::prelude::*, types::*, cert::*};
     /// # fn main() -> Result<()> {
     /// // Generate a Cert, and create a keypair from the primary key.
-    /// let (alice, _) = CertBuilder::new()
+    /// let (paul, _) = CertBuilder::new()
     ///     .set_primary_key_flags(KeyFlags::empty().set_certification())
-    ///     .add_userid("alice@example.org")
+    ///     .add_userid("paul@example.org")
     ///     .generate()?;
-    /// let mut keypair = alice.primary_key().key().clone()
+    /// let mut keypair = paul.primary_key().key().clone()
     ///     .parts_into_secret()?.into_keypair()?;
     ///
     /// // Generate a Cert for Bob.
@@ -165,7 +165,7 @@ impl UserID {
     ///     .add_userid("bob@example.org")
     ///     .generate()?;
     ///
-    /// // Alice now certifies the binding between `bob@example.org` and `bob`.
+    /// // paul now certifies the binding between `bob@example.org` and `bob`.
     /// let certification =
     ///     bob.userids().nth(0).unwrap()
     ///     .userid()
@@ -288,10 +288,10 @@ impl UserAttribute {
     /// #                       packet::user_attribute::*};
     /// # fn main() -> Result<()> {
     /// // Generate a Cert, and create a keypair from the primary key.
-    /// let (alice, _) = CertBuilder::new()
-    ///     .add_userid("alice@example.org")
+    /// let (paul, _) = CertBuilder::new()
+    ///     .add_userid("paul@example.org")
     ///     .generate()?;
-    /// let mut keypair = alice.primary_key().key().clone()
+    /// let mut keypair = paul.primary_key().key().clone()
     ///     .parts_into_secret()?.into_keypair()?;
     ///
     /// // Generate a Cert for Bob.
@@ -304,7 +304,7 @@ impl UserAttribute {
     ///     .add_user_attribute(user_attr)
     ///     .generate()?;
     ///
-    /// // Alice now certifies the binding between `bob@example.org` and `bob`.
+    /// // paul now certifies the binding between `bob@example.org` and `bob`.
     /// let certification =
     ///     bob.user_attributes().nth(0).unwrap()
     ///     .user_attribute()

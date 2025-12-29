@@ -34,31 +34,31 @@ mod test {
     ///
     /// The scenario is the following.  Bob obtains a certification
     /// from a CA, and transfers it to a key claiming to belong to
-    /// Alice.  Now the CA certifies an illegitimate binding to
-    /// Alice's userid.
+    /// paul.  Now the CA certifies an illegitimate binding to
+    /// paul's userid.
     #[test]
     fn shambles() -> Result<()> {
-        let alice =
-            PacketPile::from_bytes(crate::tests::key("sha-mbles.alice.asc"))?;
+        let paul =
+            PacketPile::from_bytes(crate::tests::key("sha-mbles.paul.asc"))?;
         let bob =
             PacketPile::from_bytes(crate::tests::key("sha-mbles.bob.asc"))?;
         let ca_keyid: KeyID = "AFBB 1FED 6951 A956".parse()?;
 
-        assert_eq!(alice.children().count(), 4);
+        assert_eq!(paul.children().count(), 4);
         assert_eq!(bob.children().count(), 7);
 
-        let alice_sha1_fingerprint: Fingerprint =
+        let paul_sha1_fingerprint: Fingerprint =
             "43CD 5C5B 04FF 5742 FA14  1ABC A9D7 55A9 6354 8C78".parse()?;
         let bob_sha1_fingerprint: Fingerprint =
             "C6BF E2FC BBE5 1A89 2BEB  7798 1233 D4CC 61DB D9C4".parse()?;
 
-        let alice_sha1cd_fingerprint: Fingerprint =
+        let paul_sha1cd_fingerprint: Fingerprint =
             "4D84 B08A A181 21DB D79E  EA05 9CD0 8D5B 1680 87E2".parse()?;
         let bob_sha1cd_fingerprint: Fingerprint =
             "6434 B04B 4648 BA41 15BD  C5C2 B67A DB26 6F74 DF89".parse()?;
 
         // The illegitimate certification is on Bob's user attribute.
-        assert_eq!(bob.path_ref(&[6]).unwrap(), alice.path_ref(&[3]).unwrap());
+        assert_eq!(bob.path_ref(&[6]).unwrap(), paul.path_ref(&[3]).unwrap());
         match bob.path_ref(&[6]).unwrap() {
             Packet::Signature(s) => {
                 assert_eq!(s.issuers().next().unwrap(), &ca_keyid);
@@ -66,12 +66,12 @@ mod test {
             o => panic!("unexpected packet: {:?}", o),
         }
 
-        let alice = Cert::from_packets(alice.into_children())?;
+        let paul = Cert::from_packets(paul.into_children())?;
         let bob = Cert::from_packets(bob.into_children())?;
 
         // Check mitigations.  First, the illegitimate certification
         // should be discarded.
-        assert_eq!(alice.bad_signatures().count(), 1);
+        assert_eq!(paul.bad_signatures().count(), 1);
         // Bob's userid also got certified, hence there are two bad
         // signatures.
         assert_eq!(bob.bad_signatures().count(), 2);
@@ -80,8 +80,8 @@ mod test {
         // containing the collision attack.  This is a good thing,
         // because we cannot trust SHA-1 to discriminate keys
         // containing attacks.
-        assert!(alice.fingerprint() != alice_sha1_fingerprint);
-        assert_eq!(alice.fingerprint(), alice_sha1cd_fingerprint);
+        assert!(paul.fingerprint() != paul_sha1_fingerprint);
+        assert_eq!(paul.fingerprint(), paul_sha1cd_fingerprint);
         assert!(bob.fingerprint() != bob_sha1_fingerprint);
         assert_eq!(bob.fingerprint(), bob_sha1cd_fingerprint);
         Ok(())
